@@ -48,93 +48,86 @@ struct FlashcardView: View {
                     }
                     
                     // Front of card
-                    ZStack {
-                        // Front of card (Question)
-                        VStack(spacing: 20) {
-                            // Favorite button
-                            if let onFavoriteToggle = onFavoriteToggle {
-                                HStack {
-                                    Button(action: onFavoriteToggle) {
-                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(.yellow)
-                                            .font(.system(size: 24))
-                                    }
-                                    .padding(.leading)
-                                    
-                                    Spacer()
+                    VStack(spacing: 20) {
+                        // Add favorite button at the top
+                        if let onFavoriteToggle = onFavoriteToggle {
+                            HStack {
+                                Button(action: onFavoriteToggle) {
+                                    Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
+                                        .foregroundColor(.yellow)
+                                        .font(.system(size: 24))
                                 }
+                                .padding(.leading)
+                                
+                                Spacer()
                             }
-                            
-                            ScrollView {
-                                Text(flashcard.question)
-                                    .font(.title3)
-                                    .padding(.horizontal)
-                                    .padding(.top)
-                                    .multilineTextAlignment(.center)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .frame(maxHeight: UIScreen.main.bounds.height * 0.4)
-                            
-                            Button(action: flipCard) {
-                                Text("Show Answer")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(Color.blue)
-                                    .cornerRadius(15)
-                            }
-                            .padding(.bottom)
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-                        .opacity(isFlipped ? 0 : 1)
                         
-                        // Back of card (Answer)
-                        VStack(spacing: 20) {
-                            if let onFavoriteToggle = onFavoriteToggle {
-                                HStack {
-                                    Button(action: onFavoriteToggle) {
-                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(.yellow)
-                                            .font(.system(size: 24))
-                                    }
-                                    .padding(.leading)
-                                    
-                                    Spacer()
-                                }
-                            }
-                            
-                            ScrollView {
-                                Text(flashcard.answer)
-                                    .font(.title3)
-                                    .padding(.horizontal)
-                                    .padding(.top)
-                                    .multilineTextAlignment(.center)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .frame(maxHeight: UIScreen.main.bounds.height * 0.4)
-                            
-                            Button(action: flipCard) {
-                                Text("Show Question")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(Color.blue)
-                                    .cornerRadius(15)
-                            }
-                            .padding(.bottom)
+                        Text(flashcard.question)
+                            .font(.title3)
+                            .padding(.horizontal)
+                            .padding(.top)
+                            .multilineTextAlignment(.center)
+                        
+                        Button(action: flipCard) {
+                            Text("Show Answer")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 12)
+                                .background(Color.blue)
+                                .cornerRadius(15)
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-                        .opacity(isFlipped ? 1 : 0)
-                        .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                        .padding(.bottom)
                     }
+                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(20)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                    .opacity(isFlipped ? 0 : 1)
+                    
+                    // Back of card
+                    VStack(spacing: 20) {
+                        // Add favorite button at the top of the back side too
+                        if let onFavoriteToggle = onFavoriteToggle {
+                            HStack {
+                                Button(action: onFavoriteToggle) {
+                                    Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
+                                        .foregroundColor(.yellow)
+                                        .font(.system(size: 24))
+                                }
+                                .padding(.leading)
+                                
+                                Spacer()
+                            }
+                        }
+                        
+                        ScrollView {
+                            Text(flashcard.answer)
+                                .font(.title3)
+                                .padding(.horizontal)
+                                .padding(.top)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        
+                        Button(action: flipCard) {
+                            Text("Show Question")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 12)
+                                .background(Color.blue)
+                                .cornerRadius(15)
+                        }
+                        .padding(.bottom)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: 300)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(20)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                    .opacity(isFlipped ? 1 : 0)
+                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                 }
                 .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
                 .padding()

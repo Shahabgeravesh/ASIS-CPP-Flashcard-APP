@@ -28,12 +28,20 @@ class ChapterStore: ObservableObject {
     @Published var chapters: [Chapter]
     private let saveKey = "ChapterProgress"
     
+    @Published var quizHistory: [Quiz] = []
+    private let quizSaveKey = "QuizHistory"
+    
+    // Add this property to store question banks for each chapter
+    private var questionBanks: [Int: [QuizQuestion]] = [:] // Chapter number to questions
+    
     init() {
         // Initialize with default chapters
         self.chapters = ChapterStore.defaultChapters()
         
         // Load saved progress
         loadProgress()
+        loadQuizHistory()
+        setupQuestionBanks()
     }
     
     // Save progress whenever a card is marked as reviewed
@@ -42,12 +50,7 @@ class ChapterStore: ObservableObject {
               flashcardIndex < chapters[chapterIndex].flashcards.count else {
             return
         }
-        
-        // Set both isReviewed and lastReviewDate
         chapters[chapterIndex].flashcards[flashcardIndex].isReviewed = true
-        chapters[chapterIndex].flashcards[flashcardIndex].lastReviewDate = Date()
-        chapters[chapterIndex].flashcards[flashcardIndex].attemptCount += 1
-        
         saveProgress()
     }
     
@@ -84,7 +87,6 @@ class ChapterStore: ObservableObject {
     private struct FlashcardProgress: Codable {
         var isReviewed: Bool
         var isMastered: Bool
-        var isFavorite: Bool  // Make sure this is included
         var attemptCount: Int
         var lastReviewDate: Date?
     }
@@ -100,7 +102,6 @@ class ChapterStore: ObservableObject {
                 FlashcardProgress(
                     isReviewed: card.isReviewed,
                     isMastered: card.isMastered,
-                    isFavorite: card.isFavorite,  // Include favorite status
                     attemptCount: card.attemptCount,
                     lastReviewDate: card.lastReviewDate
                 )
@@ -128,7 +129,6 @@ class ChapterStore: ObservableObject {
                 
                 chapters[chapterIndex].flashcards[cardIndex].isReviewed = cardProgress.isReviewed
                 chapters[chapterIndex].flashcards[cardIndex].isMastered = cardProgress.isMastered
-                chapters[chapterIndex].flashcards[cardIndex].isFavorite = cardProgress.isFavorite  // Restore favorite status
                 chapters[chapterIndex].flashcards[cardIndex].attemptCount = cardProgress.attemptCount
                 chapters[chapterIndex].flashcards[cardIndex].lastReviewDate = cardProgress.lastReviewDate
             }
@@ -2034,8 +2034,6 @@ class ChapterStore: ObservableObject {
                     answer: "Knowledge of the job, administrative and leadership abilities, people skills, and ability to stay current with developments."
                 ),
 
-                // Add next large batch of questions to Chapter 2:
-
                 Flashcard(
                     question: "Why do some organizations rotate the assignments of security supervisors?",
                     answer: "To prevent cliques and ensure familiarity with all phases of security officer duties."
@@ -2137,8 +2135,6 @@ class ChapterStore: ObservableObject {
                     question: "Why is local supervision critical in security operations?",
                     answer: "Because the quality of assets protection is directly linked to the level of training and supervision provided."
                 ),
-
-                // Add next large batch of questions to Chapter 2:
 
                 Flashcard(
                     question: "How can shift supervisors reinforce training among security officers?",
@@ -2242,8 +2238,6 @@ class ChapterStore: ObservableObject {
                     answer: "1. Abraham Maslow – Hierarchy of Needs\n2. Douglas McGregor – Theory X and Theory Y\n3. Frederick Herzberg – Motivation-Hygiene Theory\n4. Chris Argyris – Organizational Learning\n5. Warren Bennis – Leadership Theory"
                 ),
 
-                // Add next large batch of questions to Chapter 2:
-
                 Flashcard(
                     question: "Why is human interaction with security technology important?",
                     answer: "Technology should enhance rather than replace officer performance to avoid vigilance failure."
@@ -2345,8 +2339,6 @@ class ChapterStore: ObservableObject {
                     question: "What is the importance of recognition in security officer motivation?",
                     answer: "Recognition reinforces good performance, builds morale, and encourages continued excellence."
                 ),
-
-                // Add next large batch of questions to Chapter 2:
 
                 Flashcard(
                     question: "What are the key levels in Maslow's Hierarchy of Needs?",
@@ -2521,7 +2513,7 @@ class ChapterStore: ObservableObject {
                 ),
                 Flashcard(
                     question: "What is the focus of case-level investigative management?",
-                    answer: "Managing individual investigations, including assigning investigators, selecting investigative techniques, and overseeing case management protocols."
+                    answer: "Managing individual investigations, including assigning investigators, selecting investigative techniques, and overseeing case protocols."
                 ),
                 Flashcard(
                     question: "Who is typically responsible for managing investigations at all three levels?",
@@ -3246,7 +3238,7 @@ class ChapterStore: ObservableObject {
                    ),
                    Flashcard(
                        question: "What is the key difference between an interview and an interrogation?",
-                       answer: "An interview is a nonaccusatory discussion to gather information from witnesses, victims, and informants.\nA interrogation is a controlled, confrontational questioning designed to persuade a suspect to tell the truth."
+                       answer: "An interview is a nonaccusatory discussion to gather information, while an interrogation is a controlled, confrontational questioning designed to persuade a suspect to tell the truth."
                    ),
                    Flashcard(
                        question: "What are the two main types of interviews?",
@@ -3318,7 +3310,7 @@ class ChapterStore: ObservableObject {
                    ),
                    Flashcard(
                        question: "Why is gathering information before an interview important?",
-                       answer: "It helps the interviewer understand the context, anticipate responses, and formulate effective questions."
+                       answer: "It helps the investigator understand the context, anticipate responses, and formulate effective questions."
                    ),
                    Flashcard(
                        question: "What key details should an investigator know before conducting an interview?",
@@ -5132,7 +5124,7 @@ class ChapterStore: ObservableObject {
                     ),
                     Flashcard(
                         question: "What is the basis of design in security projects?",
-                        answer: "A formal document that:\nOutlines critical assets and objectives\nSummarizes risk analysis results\nLists functional requirements\nDescribes system components"
+                        answer: "A formal document that:\nOutlines critical assets and objectives\nSummarizes risk analysis results\nLists functional requirements\nDescribes security system components"
                     ),
                     Flashcard(
                         question: "What is the conceptual design phase?",
@@ -5253,7 +5245,6 @@ class ChapterStore: ObservableObject {
         chapters[chapterIndex].flashcards[flashcardIndex].lastReviewDate = Date()
         chapters[chapterIndex].flashcards[flashcardIndex].attemptCount += 1
         saveProgress()
-        objectWillChange.send()  // Explicitly notify observers of the change
     }
 
     func markFlashcardForReview(chapterIndex: Int, flashcardIndex: Int) {
@@ -5264,7 +5255,6 @@ class ChapterStore: ObservableObject {
         chapters[chapterIndex].flashcards[flashcardIndex].isMastered = false
         chapters[chapterIndex].flashcards[flashcardIndex].lastReviewDate = Date()
         saveProgress()
-        objectWillChange.send()  // Explicitly notify observers of the change
     }
     
     // Add a method to get chapter progress
@@ -5283,7 +5273,6 @@ class ChapterStore: ObservableObject {
         }
         chapters[chapterIndex].flashcards[flashcardIndex].isFavorite.toggle()
         saveProgress()
-        objectWillChange.send()  // Notify observers of the change
     }
     
     // Get all favorite flashcards across chapters
@@ -5298,6 +5287,71 @@ class ChapterStore: ObservableObject {
             }
         }
         return favorites
+    }
+    
+    // Add these methods for quiz functionality
+    private func setupQuestionBanks() {
+        // Temporary implementation - replace with your actual question banks
+        for chapter in chapters {
+            let dummyQuestions = (0..<100).map { index in
+                QuizQuestion(
+                    question: "Chapter \(chapter.number) Question \(index + 1)",
+                    options: [
+                        "Option A",
+                        "Option B",
+                        "Option C",
+                        "Option D"
+                    ],
+                    correctAnswer: 0
+                )
+            }
+            questionBanks[chapter.number] = dummyQuestions
+        }
+    }
+    
+    func generateQuiz(for chapterIndex: Int) -> Quiz {
+        let chapter = chapters[chapterIndex]
+        guard let questionBank = questionBanks[chapter.number] else {
+            // Fallback if no question bank is found
+            return createDummyQuiz(for: chapter.number)
+        }
+        
+        let randomQuestions = Array(questionBank.shuffled().prefix(Quiz.questionsPerQuiz))
+        return Quiz(chapterNumber: chapter.number, questions: randomQuestions)
+    }
+    
+    private func createDummyQuiz(for chapterNumber: Int) -> Quiz {
+        let dummyQuestions = (0..<Quiz.questionsPerQuiz).map { index in
+            QuizQuestion(
+                question: "Sample Question \(index + 1)",
+                options: ["Option A", "Option B", "Option C", "Option D"],
+                correctAnswer: 0
+            )
+        }
+        return Quiz(chapterNumber: chapterNumber, questions: dummyQuestions)
+    }
+    
+    func saveQuiz(_ quiz: Quiz) {
+        quizHistory.append(quiz)
+        saveQuizHistory()
+    }
+    
+    private func saveQuizHistory() {
+        if let encoded = try? JSONEncoder().encode(quizHistory) {
+            UserDefaults.standard.set(encoded, forKey: quizSaveKey)
+        }
+    }
+    
+    private func loadQuizHistory() {
+        if let data = UserDefaults.standard.data(forKey: quizSaveKey),
+           let decoded = try? JSONDecoder().decode([Quiz].self, from: data) {
+            quizHistory = decoded
+        }
+    }
+    
+    // Method to add real questions to a chapter's question bank
+    func setQuestionBank(for chapterNumber: Int, questions: [QuizQuestion]) {
+        questionBanks[chapterNumber] = questions
     }
 }
 

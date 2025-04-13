@@ -15,68 +15,52 @@ struct ChapterListView: View {
                             chapterStore: chapterStore
                         )
                     ) {
-                        VStack(alignment: .leading, spacing: 16) {
-                            // Chapter title and number
-                            HStack(alignment: .center) {
-                                Text("Chapter \(chapter.number)")
-                                    .font(AppTheme.captionFont)
-                                    .foregroundColor(AppTheme.secondary)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 6)
-                                    .background(AppTheme.secondary.opacity(0.1))
-                                    .cornerRadius(8)
-                                
+                        VStack(alignment: .leading, spacing: 12) {
+                            // Chapter title and progress button
+                            HStack {
+                                Text("Chapter \(chapter.number): \(chapter.title)")
+                                    .font(.headline)
+                                    .lineLimit(2)
                                 Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(AppTheme.secondary)
-                                    .font(.system(.subheadline, design: .rounded).weight(.semibold))
                             }
                             
-                            Text(chapter.title)
-                                .font(AppTheme.headlineFont)
-                                .foregroundColor(.primary)
-                                .lineLimit(2)
-                            
                             // Progress section
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 8) {
                                 ProgressView(value: chapter.progressPercentage, total: 100)
-                                    .tint(AppTheme.success)
-                                    .scaleEffect(x: 1, y: 1.5, anchor: .center)
+                                    .tint(.green)
                                 
                                 HStack {
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(AppTheme.success)
-                                        Text("\(max(0, min(100, Int(chapter.progressPercentage))))%")
-                                            .font(AppTheme.captionFont)
-                                            .foregroundColor(AppTheme.success)
-                                    }
+                                    Text("\(max(0, min(100, Int(chapter.progressPercentage))))% Complete")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                     
                                     Spacer()
                                     
-                                    HStack(spacing: 4) {
-                                        Image(systemName: "cards.fill")
-                                            .foregroundColor(AppTheme.secondary)
-                                        Text("\(chapter.flashcards.filter { !$0.isMastered }.count)/\(chapter.flashcards.count)")
-                                            .font(AppTheme.captionFont)
-                                            .foregroundColor(AppTheme.secondary)
-                                    }
+                                    Text("\(chapter.flashcards.filter { $0.isReviewed }.count)/\(chapter.flashcards.count) Cards")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
                             }
                         }
-                        .padding(AppTheme.cardPadding)
-                        .background(AppTheme.cardBackground)
-                        .cornerRadius(AppTheme.cardCornerRadius)
-                        .shadow(color: AppTheme.cardShadow, radius: 8, x: 0, y: 2)
-                        .contentShape(Rectangle())
+                        .padding()
+                        .background(Color(.systemBackground))
+                        .cornerRadius(10)
+                        .shadow(radius: 2)
+                        .contentShape(Rectangle())  // Makes entire card tappable
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
             }
             .padding()
         }
-        .navigationTitle("Chapters")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle("ASIS CPP Flashcards")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { chapterStore.resetAllProgress() }) {
+                    Image(systemName: "arrow.counterclockwise")
+                }
+                
+            }
+        }
     }
 } 

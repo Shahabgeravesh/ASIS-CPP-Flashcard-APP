@@ -2,79 +2,59 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var chapterStore: ChapterStore
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    @ObservedObject private var settings = UserSettings.shared
     @State private var showingResetAlert = false
     
     var body: some View {
         List {
-            // Appearance Section
-            Section {
-                HStack {
-                    Label {
-                        Text("Dark Mode")
-                            .foregroundColor(.primary)
-                    } icon: {
-                        Image(systemName: isDarkMode ? "moon.fill" : "moon")
-                            .foregroundColor(isDarkMode ? .purple : .gray)
-                            .font(.system(size: 20))
-                    }
-                    Spacer()
-                    Toggle("", isOn: $isDarkMode)
-                        .labelsHidden()
+            Section(header: Text("Instructions")) {
+                VStack(alignment: .leading, spacing: 12) {
+                    InstructionRow(
+                        icon: "hand.tap",
+                        title: "Tap card",
+                        description: "to show the answer"
+                    )
+                    
+                    InstructionRow(
+                        icon: "hand.draw",
+                        title: "Swipe right",
+                        description: "when you've mastered the card"
+                    )
+                    
+                    InstructionRow(
+                        icon: "arrow.left",
+                        title: "Swipe left",
+                        description: "to mark for review"
+                    )
                 }
-                .contentShape(Rectangle())
-            } header: {
-                Text("Appearance")
-                    .font(AppTheme.headlineFont)
-                    .foregroundColor(AppTheme.secondary)
+                .padding(.vertical, 8)
             }
             
-            // Actions Section
-            Section {
+            Section(header: Text("Appearance")) {
+                Toggle("Dark Mode", isOn: $settings.isDarkMode)
+            }
+            
+            Section(header: Text("Data Management")) {
                 Button(action: {
                     showingResetAlert = true
                 }) {
                     HStack {
-                        Label {
-                            Text("Reset All Progress")
-                                .foregroundColor(.red)
-                        } icon: {
-                            Image(systemName: "arrow.counterclockwise")
-                                .foregroundColor(.red)
-                                .font(.system(size: 20))
-                        }
+                        Text("Reset All Progress")
+                            .foregroundColor(.red)
                         Spacer()
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 14))
-                            .foregroundColor(.gray.opacity(0.5))
+                        Image(systemName: "arrow.counterclockwise")
                     }
                 }
-            } header: {
-                Text("Actions")
-                    .font(AppTheme.headlineFont)
-                    .foregroundColor(AppTheme.secondary)
             }
             
-            // About Section
-            Section {
-                VStack(spacing: 8) {
-                    Image(systemName: "book.closed.fill")
-                        .font(.system(size: 40))
-                        .foregroundColor(AppTheme.primary)
-                    
+            Section(header: Text("About")) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text("ASIS CPP Flashcards")
-                        .font(AppTheme.titleFont)
-                    
-                    Text("Version 3.4")
-                        .font(AppTheme.captionFont)
+                        .font(.headline)
+                    Text("Version 1.0")
                         .foregroundColor(.secondary)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 8)
-            } header: {
-                Text("About")
-                    .font(AppTheme.headlineFont)
-                    .foregroundColor(AppTheme.secondary)
+                .padding(.vertical, 4)
             }
         }
         .navigationTitle("Settings")
@@ -88,43 +68,27 @@ struct SettingsView: View {
             Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
         }
     }
-    
-    // Helper functions for stats
-    private func getTotalCards() -> Int {
-        chapterStore.chapters.reduce(0) { $0 + $1.flashcards.count }
-    }
-    
-    private func getMasteredCards() -> Int {
-        chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isMastered }.count }
-    }
-    
-    private func getFavoriteCards() -> Int {
-        chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isFavorite }.count }
-    }
 }
 
-// Helper view for stats row
-struct StatRow: View {
-    let title: String
-    let value: String
+struct InstructionRow: View {
     let icon: String
-    let color: Color
+    let title: String
+    let description: String
     
     var body: some View {
-        HStack {
+        HStack(spacing: 12) {
             Image(systemName: icon)
-                .foregroundColor(color)
-                .font(.system(size: 20))
+                .font(.title2)
+                .foregroundColor(.blue)
                 .frame(width: 30)
             
-            Text(title)
-                .foregroundColor(.secondary)
-            
-            Spacer()
-            
-            Text(value)
-                .font(.system(.body, design: .rounded).bold())
-                .foregroundColor(color)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
         }
     }
 } 

@@ -4,13 +4,13 @@ struct ChapterView: View {
     let chapter: Chapter
     let chapterIndex: Int
     @ObservedObject var chapterStore: ChapterStore
-    @Environment(\.presentationMode) var presentationMode
     @State private var showingAnswer = false
     @State private var currentCardIndex: Int
     @State private var isTransitioning = false
     @State private var showingCompletionAlert = false
     @State private var showingProgressView = false
     @State private var offset = CGSize.zero
+    @State private var showingQuiz = false
     
     init(chapter: Chapter, chapterIndex: Int, chapterStore: ChapterStore, initialCardIndex: Int = 0) {
         self.chapter = chapter
@@ -32,12 +32,8 @@ struct ChapterView: View {
         chapter.flashcards.allSatisfy { $0.isMastered }
     }
     
-    private var activeCards: [Flashcard] {
-        chapter.flashcards.filter { !$0.isMastered }
-    }
-    
     var body: some View {
-        Group {
+        ZStack {
             if chapter.flashcards.isEmpty {
                 // Show message when no flashcards are available
                 VStack {
@@ -56,8 +52,8 @@ struct ChapterView: View {
                     VStack(spacing: 8) {
                         HStack {
                             Text("\(Int(progressPercentage))% Mastered")
-                                .font(AppTheme.headlineFont)
-                                .foregroundColor(AppTheme.primary)
+                                .font(.headline)
+                                .foregroundColor(.primary)
                             
                             Spacer()
                             
@@ -70,35 +66,33 @@ struct ChapterView: View {
                             } label: {
                                 HStack(spacing: 4) {
                                     Text("View Progress")
-                                        .font(AppTheme.captionFont)
+                                        .font(.subheadline)
                                     Image(systemName: "chart.bar.fill")
                                 }
-                                .foregroundColor(AppTheme.secondary)
+                                .foregroundColor(.blue)
                             }
                         }
                         .padding(.horizontal)
                         
                         ProgressView(value: progressPercentage, total: 100)
-                            .tint(AppTheme.success)
                             .padding(.horizontal)
                     }
                     
                     // Card counter
-                    Text("Card \(currentCardIndex + 1) of \(activeCards.count)")
-                        .font(AppTheme.captionFont)
+                    Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
+                        .font(.subheadline)
                         .foregroundColor(.secondary)
                     
                     Spacer()
                     
                     // Flashcard
                     FlashcardView(
-                        flashcard: activeCards[currentCardIndex],
+                        flashcard: chapter.flashcards[currentCardIndex],
                         showingAnswer: $showingAnswer,
                         onAnswerViewed: {
-                            let originalIndex = chapter.flashcards.firstIndex(where: { $0.id == activeCards[currentCardIndex].id })!
                             chapterStore.markFlashcardAsReviewed(
                                 chapterIndex: chapterIndex,
-                                flashcardIndex: originalIndex
+                                flashcardIndex: currentCardIndex
                             )
                         },
                         onSwipeLeft: {
@@ -111,43 +105,24 @@ struct ChapterView: View {
                         },
                         offset: $offset,
                         onFavoriteToggle: {
-                            let originalIndex = chapter.flashcards.firstIndex(where: { $0.id == activeCards[currentCardIndex].id })!
                             chapterStore.toggleFavorite(
                                 chapterIndex: chapterIndex,
-                                flashcardIndex: originalIndex
+                                flashcardIndex: currentCardIndex
                             )
                         }
                     )
                     
                     Spacer()
                     
-                    // Swipe Guide
-                    HStack(spacing: 40) {
-                        // Left swipe guide
-                        VStack(spacing: 4) {
-                            Image(systemName: "arrow.left")
-                                .foregroundColor(AppTheme.secondary)
-                            Text("Swipe Left")
-                                .font(AppTheme.captionFont)
-                                .foregroundColor(AppTheme.secondary)
-                            Text("Need Review")
-                                .font(AppTheme.captionFont)
-                                .foregroundColor(.red)
-                        }
+                    // Add this section for the quiz button
+                    VStack(spacing: 16) {
+                        Divider()
                         
-                        // Right swipe guide
-                        VStack(spacing: 4) {
-                            Image(systemName: "arrow.right")
-                                .foregroundColor(AppTheme.secondary)
-                            Text("Swipe Right")
-                                .font(AppTheme.captionFont)
-                                .foregroundColor(AppTheme.secondary)
-                            Text("Mastered")
-                                .font(AppTheme.captionFont)
-                                .foregroundColor(AppTheme.success)
+                        QuizButton {
+                            showingQuiz = true
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.bottom, 20)
                 }
                 .navigationTitle("Chapter \(chapter.number)")
                 .navigationBarTitleDisplayMode(.inline)
@@ -162,28 +137,16 @@ struct ChapterView: View {
                 }
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 17))
-                        Text("Chapters")
-                            .font(.system(size: 17))
-                    }
-                    .foregroundColor(AppTheme.secondary)
-                }
+        .fullScreenCover(isPresented: $showingQuiz) {
+            NavigationView {
+                QuizView(chapter: chapter, chapterStore: chapterStore)
             }
         }
-        .background(AppTheme.cardBackground)
     }
     
     private func moveToNextCard() {
         withAnimation {
-            if currentCardIndex < activeCards.count - 1 {
+            if currentCardIndex < chapter.flashcards.count - 1 {
                 currentCardIndex += 1
             } else {
                 currentCardIndex = 0
@@ -193,10 +156,9 @@ struct ChapterView: View {
     }
     
     private func handleMastered() {
-        let originalIndex = chapter.flashcards.firstIndex(where: { $0.id == activeCards[currentCardIndex].id })!
         chapterStore.markFlashcardAsMastered(
             chapterIndex: chapterIndex,
-            flashcardIndex: originalIndex
+            flashcardIndex: currentCardIndex
         )
         
         // Check if this was the last card to master
@@ -207,10 +169,9 @@ struct ChapterView: View {
     }
     
     private func handleNeedsReview() {
-        let originalIndex = chapter.flashcards.firstIndex(where: { $0.id == activeCards[currentCardIndex].id })!
         chapterStore.markFlashcardForReview(
             chapterIndex: chapterIndex,
-            flashcardIndex: originalIndex
+            flashcardIndex: currentCardIndex
         )
     }
 }
@@ -223,24 +184,24 @@ struct ChapterCompletionView: View {
         VStack(spacing: 20) {
             Image(systemName: "star.fill")
                 .font(.system(size: 60))
-                .foregroundColor(AppTheme.accent)
+                .foregroundColor(.yellow)
             
             Text("Chapter Mastered!")
-                .font(AppTheme.titleFont)
+                .font(.title)
+                .fontWeight(.bold)
             
             Text("Congratulations! You've completed Chapter \(chapter.number)")
-                .font(AppTheme.headlineFont)
+                .font(.headline)
             
             Text("100% Mastered")
-                .font(AppTheme.headlineFont)
-                .foregroundColor(AppTheme.success)
+                .font(.title2)
+                .foregroundColor(.green)
             
             Text("Keep up the great work!")
-                .font(AppTheme.bodyFont)
+                .font(.subheadline)
                 .foregroundColor(.secondary)
         }
         .padding()
         .multilineTextAlignment(.center)
-        .background(AppTheme.cardBackground)
     }
 } 

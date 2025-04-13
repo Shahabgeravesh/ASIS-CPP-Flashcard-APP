@@ -11,9 +11,12 @@
 		BA0703C82D50523F00B9BC9D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703C72D50523F00B9BC9D /* FavoritesView.swift */; };
 		BA0703CA2D50528500B9BC9D /* MarkedCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703C92D50528500B9BC9D /* MarkedCardsView.swift */; };
 		BA0703CC2D50532B00B9BC9D /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703CB2D50532B00B9BC9D /* LaunchScreen.swift */; };
-		BA0F2CC62D66B1B6006595D4 /* AppStore-Description.md in Resources */ = {isa = PBXBuildFile; fileRef = BA0F2CC32D66B1B6006595D4 /* AppStore-Description.md */; };
-		BA0F2CC72D66B1B6006595D4 /* ASO-Keywords.txt in Resources */ = {isa = PBXBuildFile; fileRef = BA0F2CC42D66B1B6006595D4 /* ASO-Keywords.txt */; };
-		BA1056AA2D5EE056002DECE7 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1056A82D5EE056002DECE7 /* AppTheme.swift */; };
+		BA29807A2DAB962E00D5CBBF /* RandomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980792DAB962E00D5CBBF /* RandomCard.swift */; };
+		BA29807E2DAB965200D5CBBF /* AppMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29807D2DAB965200D5CBBF /* AppMetadata.swift */; };
+		BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980852DAB9B9C00D5CBBF /* QuizView.swift */; };
+		BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */; };
+		BA29808A2DAB9BAB00D5CBBF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980892DAB9BAB00D5CBBF /* Quiz.swift */; };
+		BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */; };
 		BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */; };
 		BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */; };
 		BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3FEFE72D41EEFA00CCC7AD /* Assets.xcassets */; };
@@ -57,9 +60,12 @@
 		BA0703C72D50523F00B9BC9D /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		BA0703C92D50528500B9BC9D /* MarkedCardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedCardsView.swift; sourceTree = "<group>"; };
 		BA0703CB2D50532B00B9BC9D /* LaunchScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
-		BA0F2CC32D66B1B6006595D4 /* AppStore-Description.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "AppStore-Description.md"; sourceTree = "<group>"; };
-		BA0F2CC42D66B1B6006595D4 /* ASO-Keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ASO-Keywords.txt"; sourceTree = "<group>"; };
-		BA1056A82D5EE056002DECE7 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		BA2980792DAB962E00D5CBBF /* RandomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCard.swift; sourceTree = "<group>"; };
+		BA29807D2DAB965200D5CBBF /* AppMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetadata.swift; sourceTree = "<group>"; };
+		BA2980852DAB9B9C00D5CBBF /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultView.swift; sourceTree = "<group>"; };
+		BA2980892DAB9BAB00D5CBBF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizButton.swift; sourceTree = "<group>"; };
 		BA3FEFE02D41EEF800CCC7AD /* ASIS CPP Flashcard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASIS CPP Flashcard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardApp.swift; sourceTree = "<group>"; };
 		BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -109,21 +115,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BA0F2CC52D66B1B6006595D4 /* Resources */ = {
+		BA29808E2DAB9CC100D5CBBF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BA0F2CC32D66B1B6006595D4 /* AppStore-Description.md */,
-				BA0F2CC42D66B1B6006595D4 /* ASO-Keywords.txt */,
+				BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */,
 			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		BA1056A92D5EE056002DECE7 /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				BA1056A82D5EE056002DECE7 /* AppTheme.swift */,
-			);
-			path = Theme;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BA3FEFD72D41EEF800CCC7AD = {
@@ -149,8 +146,6 @@
 		BA3FEFE22D41EEF800CCC7AD /* ASIS CPP Flashcard */ = {
 			isa = PBXGroup;
 			children = (
-				BA0F2CC52D66B1B6006595D4 /* Resources */,
-				BA1056A92D5EE056002DECE7 /* Theme */,
 				BA3FF0212D41F87300CCC7AD /* Extensions */,
 				BA3FF0162D41F1A500CCC7AD /* Views */,
 				BA3FF00D2D41F0F600CCC7AD /* Models */,
@@ -189,6 +184,9 @@
 		BA3FF00D2D41F0F600CCC7AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA2980892DAB9BAB00D5CBBF /* Quiz.swift */,
+				BA29807D2DAB965200D5CBBF /* AppMetadata.swift */,
+				BA2980792DAB962E00D5CBBF /* RandomCard.swift */,
 				BA3FF0302D41FB5200CCC7AD /* UserSettings.swift */,
 				BA3FF02E2D41FAA900CCC7AD /* ThemeManager.swift */,
 				BA3FF0242D41F8D200CCC7AD /* StudyStats.swift */,
@@ -202,6 +200,9 @@
 		BA3FF0162D41F1A500CCC7AD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BA29808E2DAB9CC100D5CBBF /* Components */,
+				BA2980852DAB9B9C00D5CBBF /* QuizView.swift */,
+				BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */,
 				BA0703C52D4899B600B9BC9D /* ChapterView.swift */,
 				BA3FF02A2D41F96E00CCC7AD /* ChapterListView.swift */,
 				BA3FF02C2D41F99F00CCC7AD /* SettingsView.swift */,
@@ -288,7 +289,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					BA3FEFDF2D41EEF800CCC7AD = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -329,8 +330,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA3FEFEB2D41EEFA00CCC7AD /* Preview Assets.xcassets in Resources */,
-				BA0F2CC62D66B1B6006595D4 /* AppStore-Description.md in Resources */,
-				BA0F2CC72D66B1B6006595D4 /* ASO-Keywords.txt in Resources */,
 				BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,9 +355,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA29807E2DAB965200D5CBBF /* AppMetadata.swift in Sources */,
+				BA29807A2DAB962E00D5CBBF /* RandomCard.swift in Sources */,
 				BA3FF0132D41F0F600CCC7AD /* ChapterStore.swift in Sources */,
 				BA3FF0192D41F1A500CCC7AD /* FlashcardView.swift in Sources */,
-				BA1056AA2D5EE056002DECE7 /* AppTheme.swift in Sources */,
 				BA0703CC2D50532B00B9BC9D /* LaunchScreen.swift in Sources */,
 				BA3FF0252D41F8D300CCC7AD /* StudyStats.swift in Sources */,
 				BA3FF02B2D41F96E00CCC7AD /* ChapterListView.swift in Sources */,
@@ -366,9 +366,13 @@
 				BA3FF02D2D41F99F00CCC7AD /* SettingsView.swift in Sources */,
 				BA3FF02F2D41FAA900CCC7AD /* ThemeManager.swift in Sources */,
 				BA3FF01E2D41F81D00CCC7AD /* DashboardView.swift in Sources */,
+				BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */,
 				BA3FF0112D41F0F600CCC7AD /* Flashcard.swift in Sources */,
 				BA3FF0312D41FB5200CCC7AD /* UserSettings.swift in Sources */,
+				BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */,
 				BA3FF0232D41F87300CCC7AD /* View+Accessibility.swift in Sources */,
+				BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */,
+				BA29808A2DAB9BAB00D5CBBF /* Quiz.swift in Sources */,
 				BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */,
 				BA0703C82D50523F00B9BC9D /* FavoritesView.swift in Sources */,
 				BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */,
@@ -447,7 +451,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -508,7 +511,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -521,7 +523,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -547,7 +549,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -576,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -588,6 +590,7 @@
 		BA3FF0082D41EEFA00CCC7AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -607,6 +610,7 @@
 		BA3FF0092D41EEFA00CCC7AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -626,6 +630,7 @@
 		BA3FF00B2D41EEFA00CCC7AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K8ZK9C85FY;
@@ -643,6 +648,7 @@
 		BA3FF00C2D41EEFA00CCC7AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K8ZK9C85FY;

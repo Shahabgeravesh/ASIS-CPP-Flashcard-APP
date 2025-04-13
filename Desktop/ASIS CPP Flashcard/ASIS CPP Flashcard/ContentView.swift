@@ -10,47 +10,37 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var chapterStore = ChapterStore()
     @StateObject private var themeManager = ThemeManager()
-    @State private var selectedTab = 1
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView {
             NavigationView {
                 DashboardView(chapterStore: chapterStore)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
-                Label("Dashboard", systemImage: "chart.xyaxis.line")
+                Label("Dashboard", systemImage: "chart.bar.fill")
             }
-            .tag(0)
             
             NavigationView {
                 ChapterListView(chapterStore: chapterStore)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
-                Label("Chapters", systemImage: "book.closed.fill")
+                Label("Chapters", systemImage: "book.fill")
             }
-            .tag(1)
             
             NavigationView {
                 FavoritesView(chapterStore: chapterStore)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
                 Label("Favorites", systemImage: "star.fill")
             }
-            .tag(2)
             
             NavigationView {
                 SettingsView(chapterStore: chapterStore)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
             .tabItem {
-                Label("Settings", systemImage: "gearshape.fill")
+                Label("Settings", systemImage: "gear")
             }
-            .tag(3)
         }
-        .accentColor(AppTheme.primary)
         .onAppear {
             themeManager.applyTheme()
         }
