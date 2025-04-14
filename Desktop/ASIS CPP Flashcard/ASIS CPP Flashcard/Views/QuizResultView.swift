@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct QuizResultView: View {
-    let quiz: Quiz
+    let quizSession: QuizSession
     let chapter: Chapter
     @Environment(\.dismiss) private var dismiss
     
     var percentageScore: Double {
-        Double(quiz.score) / Double(Quiz.questionsPerQuiz) * 100
+        Double(quizSession.score) / Double(quizSession.questions.count) * 100
     }
     
     var body: some View {
@@ -25,9 +25,9 @@ struct QuizResultView: View {
                         .rotationEffect(.degrees(-90))
                     
                     VStack {
-                        Text("\(quiz.score)")
+                        Text("\(quizSession.score)")
                             .font(.system(size: 50, weight: .bold))
-                        Text("out of \(Quiz.questionsPerQuiz)")
+                        Text("out of \(quizSession.questions.count)")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
@@ -47,21 +47,7 @@ struct QuizResultView: View {
                 }
                 
                 // Question review
-                QuestionReviewSection(questions: quiz.questions)
-                
-                // Add exit button at the bottom
-                Button(action: { dismiss() }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "xmark.circle.fill")
-                        Text("Exit Quiz")
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(Color.red.opacity(0.1))
-                    .foregroundColor(.red)
-                    .cornerRadius(10)
-                }
-                .padding(.top, 20)
+                QuestionReviewSection(questions: quizSession.questions)
             }
             .padding()
         }
@@ -101,7 +87,7 @@ struct QuizResultView: View {
 }
 
 struct QuestionReviewSection: View {
-    let questions: [QuizQuestion]
+    let questions: [QuizQuestionBank.QuizQuestion]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -119,17 +105,17 @@ struct QuestionReviewSection: View {
                     Text(question.question)
                         .font(.body)
                     
-                    if let selected = question.selectedAnswer {
+                    if let selected = question.selectedAnswerIndex {
                         HStack {
                             Text("Your answer: ")
                             Text(question.options[selected])
-                                .foregroundColor(question.isCorrect ? .green : .red)
+                                .foregroundColor(selected == question.correctAnswerIndex ? .green : .red)
                         }
                         
-                        if !question.isCorrect {
+                        if selected != question.correctAnswerIndex {
                             HStack {
                                 Text("Correct answer: ")
-                                Text(question.options[question.correctAnswer])
+                                Text(question.options[question.correctAnswerIndex])
                                     .foregroundColor(.green)
                             }
                         }

@@ -51,7 +51,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("ASIS CPP Flashcards")
                         .font(.headline)
-                    Text("Version 1.0")
+                    Text("Version 3.7")
                         .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 4)

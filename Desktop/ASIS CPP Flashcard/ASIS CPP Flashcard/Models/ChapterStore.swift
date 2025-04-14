@@ -3,7 +3,7 @@ import SwiftUI
 
 class ChapterStore: ObservableObject {
     // Add version and legal info
-    static let appVersion = "1.0.0"
+    static let appVersion = "3.7"
     static let legalDisclaimer = """
         This app is an unofficial study aid and is not affiliated with, endorsed by, or connected to ASIS International. 
         ASIS CPP® is a registered trademark of ASIS International. All content is intended for self-study purposes only.
@@ -28,13 +28,19 @@ class ChapterStore: ObservableObject {
     @Published var chapters: [Chapter]
     private let saveKey = "ChapterProgress"
     
-    @Published var quizHistory: [Quiz] = []
-    private let quizSaveKey = "QuizHistory"
+    @Published var quizHistory: [QuizSession] = []
+    private let quizHistoryKey = "QuizHistory"
     
     // Add this property to store question banks for each chapter
     private var questionBanks: [Int: [QuizQuestion]] = [:] // Chapter number to questions
     
+    @Published var questionBankManager: QuestionBankManager
+    
     init() {
+        self.questionBankManager = QuestionBankManager()
+        // Add debug print
+        print("ChapterStore initialized with QuestionBankManager")
+        
         // Initialize with default chapters
         self.chapters = ChapterStore.defaultChapters()
         
@@ -5177,12 +5183,12 @@ class ChapterStore: ObservableObject {
                     Flashcard(
                         question: "What is an initial budget in the security planning phase?",
                         answer: "A conceptual cost estimate covering capital expenditures and recurring costs before final design work is completed."
-                    ),
+                   ),
                 
-                ]),
+            ]),
             
-            // Chapter 7: Crisis Management (13%)
-            Chapter(title: "Crisis Management (13%)", number: 7, flashcards: [
+            // Chapter 6: Crisis Management (13%)
+            Chapter(title: "Crisis Management (13%)", number: 6, flashcards: [
                 Flashcard(question: "What is the primary goal of emergency management?", answer: "To detect, contain, and deal with the immediate impact of an event."),
                 Flashcard(question: "What are the four cyclical elements of emergency management?", answer: "Mitigation, Preparedness, Response, and Recovery."),
                 Flashcard(question: "Which term is often used as an umbrella term for risk management, security management, and crisis management?", answer: "Resilience."),
@@ -5309,15 +5315,17 @@ class ChapterStore: ObservableObject {
         }
     }
     
-    func generateQuiz(for chapterIndex: Int) -> Quiz {
-        let chapter = chapters[chapterIndex]
-        guard let questionBank = questionBanks[chapter.number] else {
-            // Fallback if no question bank is found
-            return createDummyQuiz(for: chapter.number)
-        }
+    func generateQuiz(for chapterNumber: Int) -> QuizSession {
+        let allQuestions = questionBankManager.getQuestionsForChapter(chapterNumber)
+        print("Generating quiz for chapter \(chapterNumber) with \(allQuestions.count) available questions")
         
-        let randomQuestions = Array(questionBank.shuffled().prefix(Quiz.questionsPerQuiz))
-        return Quiz(chapterNumber: chapter.number, questions: randomQuestions)
+        let numberOfQuestions = min(50, allQuestions.count) // Adjust if less than 50 questions available
+        let selectedQuestions = Array(allQuestions.shuffled().prefix(numberOfQuestions))
+        
+        return QuizSession(
+            chapterNumber: chapterNumber,
+            questions: selectedQuestions
+        )
     }
     
     private func createDummyQuiz(for chapterNumber: Int) -> Quiz {
@@ -5331,20 +5339,20 @@ class ChapterStore: ObservableObject {
         return Quiz(chapterNumber: chapterNumber, questions: dummyQuestions)
     }
     
-    func saveQuiz(_ quiz: Quiz) {
+    func saveQuiz(_ quiz: QuizSession) {
         quizHistory.append(quiz)
         saveQuizHistory()
     }
     
     private func saveQuizHistory() {
         if let encoded = try? JSONEncoder().encode(quizHistory) {
-            UserDefaults.standard.set(encoded, forKey: quizSaveKey)
+            UserDefaults.standard.set(encoded, forKey: quizHistoryKey)
         }
     }
     
     private func loadQuizHistory() {
-        if let data = UserDefaults.standard.data(forKey: quizSaveKey),
-           let decoded = try? JSONDecoder().decode([Quiz].self, from: data) {
+        if let data = UserDefaults.standard.data(forKey: quizHistoryKey),
+           let decoded = try? JSONDecoder().decode([QuizSession].self, from: data) {
             quizHistory = decoded
         }
     }

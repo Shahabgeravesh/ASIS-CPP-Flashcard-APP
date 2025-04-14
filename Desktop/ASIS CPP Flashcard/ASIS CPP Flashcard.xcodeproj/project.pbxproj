@@ -15,8 +15,11 @@
 		BA29807E2DAB965200D5CBBF /* AppMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29807D2DAB965200D5CBBF /* AppMetadata.swift */; };
 		BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980852DAB9B9C00D5CBBF /* QuizView.swift */; };
 		BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */; };
-		BA29808A2DAB9BAB00D5CBBF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980892DAB9BAB00D5CBBF /* Quiz.swift */; };
 		BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */; };
+		BA2980952DACA51500D5CBBF /* QuizModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980942DACA51500D5CBBF /* QuizModels.swift */; };
+		BA29809A2DACA72F00D5CBBF /* quiz_questions.json in Resources */ = {isa = PBXBuildFile; fileRef = BA2980982DACA72F00D5CBBF /* quiz_questions.json */; };
+		BA2980A02DACC8B200D5CBBF /* QuestionBankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */; };
+		BA2980A22DACC96B00D5CBBF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980A12DACC96B00D5CBBF /* Quiz.swift */; };
 		BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */; };
 		BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */; };
 		BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3FEFE72D41EEFA00CCC7AD /* Assets.xcassets */; };
@@ -64,8 +67,11 @@
 		BA29807D2DAB965200D5CBBF /* AppMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetadata.swift; sourceTree = "<group>"; };
 		BA2980852DAB9B9C00D5CBBF /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultView.swift; sourceTree = "<group>"; };
-		BA2980892DAB9BAB00D5CBBF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizButton.swift; sourceTree = "<group>"; };
+		BA2980942DACA51500D5CBBF /* QuizModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModels.swift; sourceTree = "<group>"; };
+		BA2980982DACA72F00D5CBBF /* quiz_questions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quiz_questions.json; sourceTree = "<group>"; };
+		BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBankManager.swift; sourceTree = "<group>"; };
+		BA2980A12DACC96B00D5CBBF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		BA3FEFE02D41EEF800CCC7AD /* ASIS CPP Flashcard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASIS CPP Flashcard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardApp.swift; sourceTree = "<group>"; };
 		BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -123,6 +129,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		BA2980992DACA72F00D5CBBF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA2980982DACA72F00D5CBBF /* quiz_questions.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		BA3FEFD72D41EEF800CCC7AD = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +160,7 @@
 		BA3FEFE22D41EEF800CCC7AD /* ASIS CPP Flashcard */ = {
 			isa = PBXGroup;
 			children = (
+				BA2980992DACA72F00D5CBBF /* Resources */,
 				BA3FF0212D41F87300CCC7AD /* Extensions */,
 				BA3FF0162D41F1A500CCC7AD /* Views */,
 				BA3FF00D2D41F0F600CCC7AD /* Models */,
@@ -184,7 +199,9 @@
 		BA3FF00D2D41F0F600CCC7AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BA2980892DAB9BAB00D5CBBF /* Quiz.swift */,
+				BA2980A12DACC96B00D5CBBF /* Quiz.swift */,
+				BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */,
+				BA2980942DACA51500D5CBBF /* QuizModels.swift */,
 				BA29807D2DAB965200D5CBBF /* AppMetadata.swift */,
 				BA2980792DAB962E00D5CBBF /* RandomCard.swift */,
 				BA3FF0302D41FB5200CCC7AD /* UserSettings.swift */,
@@ -329,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA29809A2DACA72F00D5CBBF /* quiz_questions.json in Resources */,
 				BA3FEFEB2D41EEFA00CCC7AD /* Preview Assets.xcassets in Resources */,
 				BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */,
 			);
@@ -367,18 +385,20 @@
 				BA3FF02F2D41FAA900CCC7AD /* ThemeManager.swift in Sources */,
 				BA3FF01E2D41F81D00CCC7AD /* DashboardView.swift in Sources */,
 				BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */,
+				BA2980952DACA51500D5CBBF /* QuizModels.swift in Sources */,
 				BA3FF0112D41F0F600CCC7AD /* Flashcard.swift in Sources */,
 				BA3FF0312D41FB5200CCC7AD /* UserSettings.swift in Sources */,
 				BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */,
 				BA3FF0232D41F87300CCC7AD /* View+Accessibility.swift in Sources */,
 				BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */,
-				BA29808A2DAB9BAB00D5CBBF /* Quiz.swift in Sources */,
 				BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */,
 				BA0703C82D50523F00B9BC9D /* FavoritesView.swift in Sources */,
 				BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */,
 				BA0703C62D4899B600B9BC9D /* ChapterView.swift in Sources */,
+				BA2980A22DACC96B00D5CBBF /* Quiz.swift in Sources */,
 				BA3FF0122D41F0F600CCC7AD /* Chapter.swift in Sources */,
 				BA0703CA2D50528500B9BC9D /* MarkedCardsView.swift in Sources */,
+				BA2980A02DACC8B200D5CBBF /* QuestionBankManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +569,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -578,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
