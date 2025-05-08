@@ -25,8 +25,8 @@ struct FlashcardView: View {
     // Modern color scheme using system colors
     private let cardGradient = LinearGradient(
         colors: [
-            ColorTheme.Background.card(for: .light),
-            ColorTheme.Background.card(for: .light).opacity(0.95)
+            Color(.systemBackground),
+            Color(.systemBackground).opacity(0.95)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
@@ -76,7 +76,7 @@ struct FlashcardView: View {
                             
                             Text(flashcard.question)
                                 .font(.system(size: 24, weight: .semibold, design: .rounded))
-                                .foregroundColor(ColorTheme.Text.primary)
+                                .foregroundColor(Color(.label))
                                 .padding(.horizontal, DesignSystem.Spacing.l)
                                 .padding(.vertical, DesignSystem.Spacing.m)
                                 .multilineTextAlignment(.center)
@@ -130,7 +130,7 @@ struct FlashcardView: View {
                             ScrollView {
                                 Text(flashcard.answer)
                                     .font(.system(size: 24, weight: .semibold, design: .rounded))
-                                    .foregroundColor(ColorTheme.Text.primary)
+                                    .foregroundColor(Color(.label))
                                     .padding(.horizontal, DesignSystem.Spacing.l)
                                     .padding(.vertical, DesignSystem.Spacing.m)
                                     .multilineTextAlignment(.center)
@@ -197,38 +197,42 @@ struct FlashcardView: View {
                     
                     // Modern swipe instructions
                     HStack(spacing: DesignSystem.Spacing.m) {
-                        HStack(spacing: DesignSystem.Spacing.s) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
-                                    .fill(ColorTheme.Interactive.error.opacity(0.12))
-                                    .frame(width: 44, height: 44)
-                                Image(systemName: "arrow.left")
-                                    .foregroundColor(ColorTheme.Interactive.error)
-                                    .font(.system(size: 22, weight: .semibold))
-                            }
-                            Text("Didn't know?\nSwipe left")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(ColorTheme.Interactive.error)
+                        // Left instruction
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.left")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.secondary)
+                            Text("Swipe left - Didn't know")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.secondary)
                         }
                         
                         Spacer()
                         
-                        HStack(spacing: DesignSystem.Spacing.s) {
-                            Text("Knew it?\nSwipe right")
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(ColorTheme.Interactive.success)
-                            ZStack {
-                                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
-                                    .fill(ColorTheme.Interactive.success.opacity(0.12))
-                                    .frame(width: 44, height: 44)
-                                Image(systemName: "arrow.right")
-                                    .foregroundColor(ColorTheme.Interactive.success)
-                                    .font(.system(size: 22, weight: .semibold))
-                            }
+                        // Favorite instruction
+                        HStack(spacing: 4) {
+                            Image(systemName: "star")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.secondary)
+                            Text("Tap to save")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        // Right instruction
+                        HStack(spacing: 4) {
+                            Text("Swipe right - Knew it")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.secondary)
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.secondary)
                         }
                     }
                     .padding(.horizontal, DesignSystem.Spacing.m)
-                    .padding(.top, DesignSystem.Spacing.m)
+                    .padding(.top, DesignSystem.Spacing.s)
                 }
             }
         }
