@@ -1,0 +1,728 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BA0703C62D4899B600B9BC9D /* ChapterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703C52D4899B600B9BC9D /* ChapterView.swift */; };
+		BA0703C82D50523F00B9BC9D /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703C72D50523F00B9BC9D /* FavoritesView.swift */; };
+		BA0703CA2D50528500B9BC9D /* MarkedCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703C92D50528500B9BC9D /* MarkedCardsView.swift */; };
+		BA0703CC2D50532B00B9BC9D /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0703CB2D50532B00B9BC9D /* LaunchScreen.swift */; };
+		BA29807A2DAB962E00D5CBBF /* RandomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980792DAB962E00D5CBBF /* RandomCard.swift */; };
+		BA29807E2DAB965200D5CBBF /* AppMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29807D2DAB965200D5CBBF /* AppMetadata.swift */; };
+		BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980852DAB9B9C00D5CBBF /* QuizView.swift */; };
+		BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */; };
+		BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */; };
+		BA2980952DACA51500D5CBBF /* QuizModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980942DACA51500D5CBBF /* QuizModels.swift */; };
+		BA29809A2DACA72F00D5CBBF /* quiz_questions.json in Resources */ = {isa = PBXBuildFile; fileRef = BA2980982DACA72F00D5CBBF /* quiz_questions.json */; };
+		BA2980A02DACC8B200D5CBBF /* QuestionBankManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */; };
+		BA2980A22DACC96B00D5CBBF /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2980A12DACC96B00D5CBBF /* Quiz.swift */; };
+		BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */; };
+		BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */; };
+		BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3FEFE72D41EEFA00CCC7AD /* Assets.xcassets */; };
+		BA3FEFEB2D41EEFA00CCC7AD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3FEFEA2D41EEFA00CCC7AD /* Preview Assets.xcassets */; };
+		BA3FEFF52D41EEFA00CCC7AD /* ASIS_CPP_FlashcardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFF42D41EEFA00CCC7AD /* ASIS_CPP_FlashcardTests.swift */; };
+		BA3FEFFF2D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FEFFE2D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITests.swift */; };
+		BA3FF0012D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0002D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITestsLaunchTests.swift */; };
+		BA3FF0112D41F0F600CCC7AD /* Flashcard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF00E2D41F0F600CCC7AD /* Flashcard.swift */; };
+		BA3FF0122D41F0F600CCC7AD /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF00F2D41F0F600CCC7AD /* Chapter.swift */; };
+		BA3FF0132D41F0F600CCC7AD /* ChapterStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0102D41F0F600CCC7AD /* ChapterStore.swift */; };
+		BA3FF0192D41F1A500CCC7AD /* FlashcardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0172D41F1A500CCC7AD /* FlashcardView.swift */; };
+		BA3FF01C2D41F4B500CCC7AD /* ChapterProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF01B2D41F4B500CCC7AD /* ChapterProgressView.swift */; };
+		BA3FF01E2D41F81D00CCC7AD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF01D2D41F81D00CCC7AD /* DashboardView.swift */; };
+		BA3FF0232D41F87300CCC7AD /* View+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0222D41F87300CCC7AD /* View+Accessibility.swift */; };
+		BA3FF0252D41F8D300CCC7AD /* StudyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0242D41F8D200CCC7AD /* StudyStats.swift */; };
+		BA3FF02B2D41F96E00CCC7AD /* ChapterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF02A2D41F96E00CCC7AD /* ChapterListView.swift */; };
+		BA3FF02D2D41F99F00CCC7AD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF02C2D41F99F00CCC7AD /* SettingsView.swift */; };
+		BA3FF02F2D41FAA900CCC7AD /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF02E2D41FAA900CCC7AD /* ThemeManager.swift */; };
+		BA3FF0312D41FB5200CCC7AD /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3FF0302D41FB5200CCC7AD /* UserSettings.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BA3FEFF12D41EEFA00CCC7AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA3FEFD82D41EEF800CCC7AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA3FEFDF2D41EEF800CCC7AD;
+			remoteInfo = "ASIS CPP Flashcard";
+		};
+		BA3FEFFB2D41EEFA00CCC7AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BA3FEFD82D41EEF800CCC7AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA3FEFDF2D41EEF800CCC7AD;
+			remoteInfo = "ASIS CPP Flashcard";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BA0703C52D4899B600B9BC9D /* ChapterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterView.swift; sourceTree = "<group>"; };
+		BA0703C72D50523F00B9BC9D /* FavoritesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		BA0703C92D50528500B9BC9D /* MarkedCardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkedCardsView.swift; sourceTree = "<group>"; };
+		BA0703CB2D50532B00B9BC9D /* LaunchScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
+		BA2980792DAB962E00D5CBBF /* RandomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCard.swift; sourceTree = "<group>"; };
+		BA29807D2DAB965200D5CBBF /* AppMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetadata.swift; sourceTree = "<group>"; };
+		BA2980852DAB9B9C00D5CBBF /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultView.swift; sourceTree = "<group>"; };
+		BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizButton.swift; sourceTree = "<group>"; };
+		BA2980942DACA51500D5CBBF /* QuizModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModels.swift; sourceTree = "<group>"; };
+		BA2980982DACA72F00D5CBBF /* quiz_questions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = quiz_questions.json; sourceTree = "<group>"; };
+		BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBankManager.swift; sourceTree = "<group>"; };
+		BA2980A12DACC96B00D5CBBF /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		BA3FEFE02D41EEF800CCC7AD /* ASIS CPP Flashcard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASIS CPP Flashcard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardApp.swift; sourceTree = "<group>"; };
+		BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
+		BA3FEFE72D41EEFA00CCC7AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA3FEFEA2D41EEFA00CCC7AD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA3FEFF02D41EEFA00CCC7AD /* ASIS CPP FlashcardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ASIS CPP FlashcardTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3FEFF42D41EEFA00CCC7AD /* ASIS_CPP_FlashcardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardTests.swift; sourceTree = "<group>"; };
+		BA3FEFFA2D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ASIS CPP FlashcardUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3FEFFE2D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardUITests.swift; sourceTree = "<group>"; };
+		BA3FF0002D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASIS_CPP_FlashcardUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BA3FF00E2D41F0F600CCC7AD /* Flashcard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flashcard.swift; sourceTree = "<group>"; };
+		BA3FF00F2D41F0F600CCC7AD /* Chapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		BA3FF0102D41F0F600CCC7AD /* ChapterStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterStore.swift; sourceTree = "<group>"; };
+		BA3FF0172D41F1A500CCC7AD /* FlashcardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashcardView.swift; sourceTree = "<group>"; };
+		BA3FF01B2D41F4B500CCC7AD /* ChapterProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterProgressView.swift; sourceTree = "<group>"; };
+		BA3FF01D2D41F81D00CCC7AD /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		BA3FF0222D41F87300CCC7AD /* View+Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Accessibility.swift"; sourceTree = "<group>"; };
+		BA3FF0242D41F8D200CCC7AD /* StudyStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyStats.swift; sourceTree = "<group>"; };
+		BA3FF02A2D41F96E00CCC7AD /* ChapterListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChapterListView.swift; sourceTree = "<group>"; };
+		BA3FF02C2D41F99F00CCC7AD /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BA3FF02E2D41FAA900CCC7AD /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		BA3FF0302D41FB5200CCC7AD /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA3FEFDD2D41EEF800CCC7AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFED2D41EEFA00CCC7AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFF72D41EEFA00CCC7AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BA29808E2DAB9CC100D5CBBF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BA29808D2DAB9CC100D5CBBF /* QuizButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BA2980992DACA72F00D5CBBF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BA2980982DACA72F00D5CBBF /* quiz_questions.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BA3FEFD72D41EEF800CCC7AD = {
+			isa = PBXGroup;
+			children = (
+				BA3FEFE22D41EEF800CCC7AD /* ASIS CPP Flashcard */,
+				BA3FEFF32D41EEFA00CCC7AD /* ASIS CPP FlashcardTests */,
+				BA3FEFFD2D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests */,
+				BA3FEFE12D41EEF800CCC7AD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BA3FEFE12D41EEF800CCC7AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FEFE02D41EEF800CCC7AD /* ASIS CPP Flashcard.app */,
+				BA3FEFF02D41EEFA00CCC7AD /* ASIS CPP FlashcardTests.xctest */,
+				BA3FEFFA2D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA3FEFE22D41EEF800CCC7AD /* ASIS CPP Flashcard */ = {
+			isa = PBXGroup;
+			children = (
+				BA2980992DACA72F00D5CBBF /* Resources */,
+				BA3FF0212D41F87300CCC7AD /* Extensions */,
+				BA3FF0162D41F1A500CCC7AD /* Views */,
+				BA3FF00D2D41F0F600CCC7AD /* Models */,
+				BA3FEFE32D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift */,
+				BA3FEFE72D41EEFA00CCC7AD /* Assets.xcassets */,
+				BA3FEFE92D41EEFA00CCC7AD /* Preview Content */,
+			);
+			path = "ASIS CPP Flashcard";
+			sourceTree = "<group>";
+		};
+		BA3FEFE92D41EEFA00CCC7AD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FEFEA2D41EEFA00CCC7AD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BA3FEFF32D41EEFA00CCC7AD /* ASIS CPP FlashcardTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FEFF42D41EEFA00CCC7AD /* ASIS_CPP_FlashcardTests.swift */,
+			);
+			path = "ASIS CPP FlashcardTests";
+			sourceTree = "<group>";
+		};
+		BA3FEFFD2D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FEFFE2D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITests.swift */,
+				BA3FF0002D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITestsLaunchTests.swift */,
+			);
+			path = "ASIS CPP FlashcardUITests";
+			sourceTree = "<group>";
+		};
+		BA3FF00D2D41F0F600CCC7AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BA2980A12DACC96B00D5CBBF /* Quiz.swift */,
+				BA29809F2DACC8B200D5CBBF /* QuestionBankManager.swift */,
+				BA2980942DACA51500D5CBBF /* QuizModels.swift */,
+				BA29807D2DAB965200D5CBBF /* AppMetadata.swift */,
+				BA2980792DAB962E00D5CBBF /* RandomCard.swift */,
+				BA3FF0302D41FB5200CCC7AD /* UserSettings.swift */,
+				BA3FF02E2D41FAA900CCC7AD /* ThemeManager.swift */,
+				BA3FF0242D41F8D200CCC7AD /* StudyStats.swift */,
+				BA3FF00E2D41F0F600CCC7AD /* Flashcard.swift */,
+				BA3FF00F2D41F0F600CCC7AD /* Chapter.swift */,
+				BA3FF0102D41F0F600CCC7AD /* ChapterStore.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BA3FF0162D41F1A500CCC7AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA29808E2DAB9CC100D5CBBF /* Components */,
+				BA2980852DAB9B9C00D5CBBF /* QuizView.swift */,
+				BA2980872DAB9BA200D5CBBF /* QuizResultView.swift */,
+				BA0703C52D4899B600B9BC9D /* ChapterView.swift */,
+				BA3FF02A2D41F96E00CCC7AD /* ChapterListView.swift */,
+				BA3FF02C2D41F99F00CCC7AD /* SettingsView.swift */,
+				BA3FF01D2D41F81D00CCC7AD /* DashboardView.swift */,
+				BA3FF0172D41F1A500CCC7AD /* FlashcardView.swift */,
+				BA0703C72D50523F00B9BC9D /* FavoritesView.swift */,
+				BA0703C92D50528500B9BC9D /* MarkedCardsView.swift */,
+				BA0703CB2D50532B00B9BC9D /* LaunchScreen.swift */,
+				BA3FF01B2D41F4B500CCC7AD /* ChapterProgressView.swift */,
+				BA3FEFE52D41EEF800CCC7AD /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA3FF0212D41F87300CCC7AD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BA3FF0222D41F87300CCC7AD /* View+Accessibility.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA3FEFDF2D41EEF800CCC7AD /* ASIS CPP Flashcard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA3FF0042D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP Flashcard" */;
+			buildPhases = (
+				BA3FEFDC2D41EEF800CCC7AD /* Sources */,
+				BA3FEFDD2D41EEF800CCC7AD /* Frameworks */,
+				BA3FEFDE2D41EEF800CCC7AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ASIS CPP Flashcard";
+			productName = "ASIS CPP Flashcard";
+			productReference = BA3FEFE02D41EEF800CCC7AD /* ASIS CPP Flashcard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BA3FEFEF2D41EEFA00CCC7AD /* ASIS CPP FlashcardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA3FF0072D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP FlashcardTests" */;
+			buildPhases = (
+				BA3FEFEC2D41EEFA00CCC7AD /* Sources */,
+				BA3FEFED2D41EEFA00CCC7AD /* Frameworks */,
+				BA3FEFEE2D41EEFA00CCC7AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA3FEFF22D41EEFA00CCC7AD /* PBXTargetDependency */,
+			);
+			name = "ASIS CPP FlashcardTests";
+			productName = "ASIS CPP FlashcardTests";
+			productReference = BA3FEFF02D41EEFA00CCC7AD /* ASIS CPP FlashcardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BA3FEFF92D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA3FF00A2D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP FlashcardUITests" */;
+			buildPhases = (
+				BA3FEFF62D41EEFA00CCC7AD /* Sources */,
+				BA3FEFF72D41EEFA00CCC7AD /* Frameworks */,
+				BA3FEFF82D41EEFA00CCC7AD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA3FEFFC2D41EEFA00CCC7AD /* PBXTargetDependency */,
+			);
+			name = "ASIS CPP FlashcardUITests";
+			productName = "ASIS CPP FlashcardUITests";
+			productReference = BA3FEFFA2D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA3FEFD82D41EEF800CCC7AD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					BA3FEFDF2D41EEF800CCC7AD = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					BA3FEFEF2D41EEFA00CCC7AD = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = BA3FEFDF2D41EEF800CCC7AD;
+					};
+					BA3FEFF92D41EEFA00CCC7AD = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = BA3FEFDF2D41EEF800CCC7AD;
+					};
+				};
+			};
+			buildConfigurationList = BA3FEFDB2D41EEF800CCC7AD /* Build configuration list for PBXProject "ASIS CPP Flashcard" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA3FEFD72D41EEF800CCC7AD;
+			productRefGroup = BA3FEFE12D41EEF800CCC7AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA3FEFDF2D41EEF800CCC7AD /* ASIS CPP Flashcard */,
+				BA3FEFEF2D41EEFA00CCC7AD /* ASIS CPP FlashcardTests */,
+				BA3FEFF92D41EEFA00CCC7AD /* ASIS CPP FlashcardUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA3FEFDE2D41EEF800CCC7AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA29809A2DACA72F00D5CBBF /* quiz_questions.json in Resources */,
+				BA3FEFEB2D41EEFA00CCC7AD /* Preview Assets.xcassets in Resources */,
+				BA3FEFE82D41EEFA00CCC7AD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFEE2D41EEFA00CCC7AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFF82D41EEFA00CCC7AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA3FEFDC2D41EEF800CCC7AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA29807E2DAB965200D5CBBF /* AppMetadata.swift in Sources */,
+				BA29807A2DAB962E00D5CBBF /* RandomCard.swift in Sources */,
+				BA3FF0132D41F0F600CCC7AD /* ChapterStore.swift in Sources */,
+				BA3FF0192D41F1A500CCC7AD /* FlashcardView.swift in Sources */,
+				BA0703CC2D50532B00B9BC9D /* LaunchScreen.swift in Sources */,
+				BA3FF0252D41F8D300CCC7AD /* StudyStats.swift in Sources */,
+				BA3FF02B2D41F96E00CCC7AD /* ChapterListView.swift in Sources */,
+				BA3FF01C2D41F4B500CCC7AD /* ChapterProgressView.swift in Sources */,
+				BA3FF02D2D41F99F00CCC7AD /* SettingsView.swift in Sources */,
+				BA3FF02F2D41FAA900CCC7AD /* ThemeManager.swift in Sources */,
+				BA3FF01E2D41F81D00CCC7AD /* DashboardView.swift in Sources */,
+				BA2980862DAB9B9C00D5CBBF /* QuizView.swift in Sources */,
+				BA2980952DACA51500D5CBBF /* QuizModels.swift in Sources */,
+				BA3FF0112D41F0F600CCC7AD /* Flashcard.swift in Sources */,
+				BA3FF0312D41FB5200CCC7AD /* UserSettings.swift in Sources */,
+				BA2980882DAB9BA200D5CBBF /* QuizResultView.swift in Sources */,
+				BA3FF0232D41F87300CCC7AD /* View+Accessibility.swift in Sources */,
+				BA29808F2DAB9CC100D5CBBF /* QuizButton.swift in Sources */,
+				BA3FEFE62D41EEF800CCC7AD /* ContentView.swift in Sources */,
+				BA0703C82D50523F00B9BC9D /* FavoritesView.swift in Sources */,
+				BA3FEFE42D41EEF800CCC7AD /* ASIS_CPP_FlashcardApp.swift in Sources */,
+				BA0703C62D4899B600B9BC9D /* ChapterView.swift in Sources */,
+				BA2980A22DACC96B00D5CBBF /* Quiz.swift in Sources */,
+				BA3FF0122D41F0F600CCC7AD /* Chapter.swift in Sources */,
+				BA0703CA2D50528500B9BC9D /* MarkedCardsView.swift in Sources */,
+				BA2980A02DACC8B200D5CBBF /* QuestionBankManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFEC2D41EEFA00CCC7AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA3FEFF52D41EEFA00CCC7AD /* ASIS_CPP_FlashcardTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA3FEFF62D41EEFA00CCC7AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA3FEFFF2D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITests.swift in Sources */,
+				BA3FF0012D41EEFA00CCC7AD /* ASIS_CPP_FlashcardUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BA3FEFF22D41EEFA00CCC7AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA3FEFDF2D41EEF800CCC7AD /* ASIS CPP Flashcard */;
+			targetProxy = BA3FEFF12D41EEFA00CCC7AD /* PBXContainerItemProxy */;
+		};
+		BA3FEFFC2D41EEFA00CCC7AD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA3FEFDF2D41EEF800CCC7AD /* ASIS CPP Flashcard */;
+			targetProxy = BA3FEFFB2D41EEFA00CCC7AD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		BA3FF0022D41EEFA00CCC7AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA3FF0032D41EEFA00CCC7AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA3FF0052D41EEFA00CCC7AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ASIS CPP Flashcard/Preview Content\"";
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.7.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA3FF0062D41EEFA00CCC7AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ASIS CPP Flashcard/Preview Content\"";
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.7.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-Flashcard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BA3FF0082D41EEFA00CCC7AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-FlashcardTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASIS CPP Flashcard.app/ASIS CPP Flashcard";
+			};
+			name = Debug;
+		};
+		BA3FF0092D41EEFA00CCC7AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-FlashcardTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ASIS CPP Flashcard.app/ASIS CPP Flashcard";
+			};
+			name = Release;
+		};
+		BA3FF00B2D41EEFA00CCC7AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-FlashcardUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ASIS CPP Flashcard";
+			};
+			name = Debug;
+		};
+		BA3FF00C2D41EEFA00CCC7AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K8ZK9C85FY;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "CPP.ASIS-CPP-FlashcardUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ASIS CPP Flashcard";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA3FEFDB2D41EEF800CCC7AD /* Build configuration list for PBXProject "ASIS CPP Flashcard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3FF0022D41EEFA00CCC7AD /* Debug */,
+				BA3FF0032D41EEFA00CCC7AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA3FF0042D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP Flashcard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3FF0052D41EEFA00CCC7AD /* Debug */,
+				BA3FF0062D41EEFA00CCC7AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA3FF0072D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP FlashcardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3FF0082D41EEFA00CCC7AD /* Debug */,
+				BA3FF0092D41EEFA00CCC7AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA3FF00A2D41EEFA00CCC7AD /* Build configuration list for PBXNativeTarget "ASIS CPP FlashcardUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3FF00B2D41EEFA00CCC7AD /* Debug */,
+				BA3FF00C2D41EEFA00CCC7AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA3FEFD82D41EEF800CCC7AD /* Project object */;
+}
