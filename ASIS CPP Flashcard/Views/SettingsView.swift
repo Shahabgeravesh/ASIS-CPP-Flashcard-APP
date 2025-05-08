@@ -8,50 +8,57 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            // Sky-inspired background
+            // System background
             LinearGradient(
-                colors: [
-                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
-                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
-                ],
+                colors: ColorTheme.Background.gradient(for: colorScheme),
                 startPoint: .top,
                 endPoint: .bottom
             )
             .ignoresSafeArea()
             
             List {
-                Section(header: Text("Appearance").foregroundColor(Color("4A6572"))) {
+                Section {
                     Toggle("Dark Mode", isOn: $settings.isDarkMode)
-                        .foregroundColor(Color("4A6572"))
+                        .foregroundColor(ColorTheme.Text.primary)
+                } header: {
+                    Text("Appearance")
+                        .sectionHeaderStyle()
                 }
-                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
+                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
                 
-                Section(header: Text("Data Management").foregroundColor(Color("4A6572"))) {
+                Section {
                     Button(action: {
                         showingResetAlert = true
                     }) {
                         HStack {
                             Text("Reset All Progress")
-                                .foregroundColor(Color("E57373"))
+                                .foregroundColor(ColorTheme.Interactive.error)
                             Spacer()
                             Image(systemName: "arrow.counterclockwise")
-                                .foregroundColor(Color("E57373"))
+                                .foregroundColor(ColorTheme.Interactive.error)
                         }
                     }
+                } header: {
+                    Text("Data Management")
+                        .sectionHeaderStyle()
                 }
-                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
+                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
                 
-                Section(header: Text("About").foregroundColor(Color("4A6572"))) {
-                    VStack(alignment: .leading, spacing: 8) {
+                Section {
+                    VStack(alignment: .leading, spacing: DesignSystem.Spacing.s) {
                         Text("ASIS CPP Flashcards")
-                            .font(.headline)
-                            .foregroundColor(Color("4A6572"))
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(ColorTheme.Text.primary)
                         Text("Version 3.7.3")
-                            .foregroundColor(Color("6B8C9A"))
+                            .font(.system(size: 16, weight: .medium, design: .rounded))
+                            .foregroundColor(ColorTheme.Text.secondary)
                     }
-                    .padding(.vertical, 4)
+                    .padding(.vertical, DesignSystem.Spacing.s)
+                } header: {
+                    Text("About")
+                        .sectionHeaderStyle()
                 }
-                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
+                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
             }
             .onAppear {
                 // Set the list background color to clear
@@ -66,7 +73,7 @@ struct SettingsView: View {
                 chapterStore.resetAllProgress()
             }
         } message: {
-            Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
+            Text("Are you sure you want to reset all your progress? This action cannot be undone.")
         }
     }
 } 

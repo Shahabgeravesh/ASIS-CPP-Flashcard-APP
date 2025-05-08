@@ -22,33 +22,23 @@ struct FlashcardView: View {
         case left, right
     }
     
-    // Calm-inspired color scheme
+    // Modern color scheme using system colors
     private let cardGradient = LinearGradient(
         colors: [
-            Color("E3F2FD"),
-            Color("BBDEFB")
+            ColorTheme.Background.card(for: .light),
+            ColorTheme.Background.card(for: .light).opacity(0.95)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing
     )
     
-    private let buttonGradient = LinearGradient(
-        colors: [
-            Color("4FC3F7"),
-            Color("81D4FA")
-        ],
-        startPoint: .leading,
-        endPoint: .trailing
-    )
+    private let buttonGradient = ColorTheme.Interactive.primaryGradient
     
     var body: some View {
         ZStack {
-            // Sky-inspired background
+            // System background
             LinearGradient(
-                colors: [
-                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
-                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
-                ],
+                colors: ColorTheme.Background.gradient(for: colorScheme),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -60,116 +50,137 @@ struct FlashcardView: View {
                         // Background indicators for swipe direction
                         HStack {
                             // Left swipe indicator
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color("E57373").opacity(0.15))
+                            RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
+                                .fill(ColorTheme.Interactive.error.opacity(0.15))
                                 .overlay(
                                     Image(systemName: "arrow.counterclockwise")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(Color("E57373"))
+                                        .font(.system(size: 30, weight: .medium))
+                                        .foregroundColor(ColorTheme.Interactive.error)
                                 )
                                 .opacity(offset.width < 0 ? Double(-offset.width/100) : 0)
                             
                             // Right swipe indicator
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color("81C784").opacity(0.15))
+                            RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
+                                .fill(ColorTheme.Interactive.success.opacity(0.15))
                                 .overlay(
                                     Image(systemName: "checkmark")
-                                        .font(.system(size: 30))
-                                        .foregroundColor(Color("81C784"))
+                                        .font(.system(size: 30, weight: .medium))
+                                        .foregroundColor(ColorTheme.Interactive.success)
                                 )
                                 .opacity(offset.width > 0 ? Double(offset.width/100) : 0)
                         }
                         
                         // Front of card
-                        VStack(spacing: 20) {
-                            // Add favorite button at the top
-                            if let onFavoriteToggle = onFavoriteToggle {
-                                HStack {
-                                    Button(action: onFavoriteToggle) {
-                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(Color("FFD54F"))
-                                            .font(.system(size: 24))
-                                    }
-                                    .padding(.leading)
-                                    
-                                    Spacer()
-                                }
-                            }
+                        VStack(spacing: DesignSystem.Spacing.m) {
+                            Spacer()
                             
                             Text(flashcard.question)
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color("4A6572"))
-                                .padding(.horizontal)
-                                .padding(.top)
+                                .font(.system(size: 24, weight: .semibold, design: .rounded))
+                                .foregroundColor(ColorTheme.Text.primary)
+                                .padding(.horizontal, DesignSystem.Spacing.l)
+                                .padding(.vertical, DesignSystem.Spacing.m)
                                 .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
                             
-                            Button(action: flipCard) {
-                                Text("Show Answer")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(buttonGradient)
-                                    .cornerRadius(15)
-                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                            Spacer()
+                            
+                            VStack(spacing: DesignSystem.Spacing.m) {
+                                Button(action: flipCard) {
+                                    Text("Show Answer")
+                                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, DesignSystem.Spacing.l)
+                                        .padding(.vertical, DesignSystem.Spacing.s)
+                                        .background(buttonGradient)
+                                        .cornerRadius(DesignSystem.CornerRadius.medium)
+                                        .shadow(
+                                            color: DesignSystem.Shadow.small.color,
+                                            radius: DesignSystem.Shadow.small.radius,
+                                            x: DesignSystem.Shadow.small.x,
+                                            y: DesignSystem.Shadow.small.y
+                                        )
+                                }
+                                
+                                // Add favorite button under Show Answer
+                                if let onFavoriteToggle = onFavoriteToggle {
+                                    Button(action: onFavoriteToggle) {
+                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
+                                            .foregroundColor(ColorTheme.Interactive.favorite)
+                                            .font(.system(size: 24, weight: .medium))
+                                    }
+                                }
                             }
-                            .padding(.bottom)
+                            .padding(.bottom, DesignSystem.Spacing.l)
                         }
-                        .frame(maxWidth: .infinity, maxHeight: 200)
+                        .frame(maxWidth: .infinity, maxHeight: 400)
                         .background(cardGradient)
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                        .cornerRadius(DesignSystem.CornerRadius.large)
+                        .shadow(
+                            color: DesignSystem.Shadow.medium.color,
+                            radius: DesignSystem.Shadow.medium.radius,
+                            x: DesignSystem.Shadow.medium.x,
+                            y: DesignSystem.Shadow.medium.y
+                        )
                         .opacity(isFlipped ? 0 : 1)
                         
                         // Back of card
-                        VStack(spacing: 20) {
-                            // Add favorite button at the top of the back side too
-                            if let onFavoriteToggle = onFavoriteToggle {
-                                HStack {
-                                    Button(action: onFavoriteToggle) {
-                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
-                                            .foregroundColor(Color("FFD54F"))
-                                            .font(.system(size: 24))
-                                    }
-                                    .padding(.leading)
-                                    
-                                    Spacer()
-                                }
-                            }
+                        VStack(spacing: DesignSystem.Spacing.m) {
+                            Spacer()
                             
                             ScrollView {
                                 Text(flashcard.answer)
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(Color("4A6572"))
-                                    .padding(.horizontal)
-                                    .padding(.top)
+                                    .font(.system(size: 24, weight: .semibold, design: .rounded))
+                                    .foregroundColor(ColorTheme.Text.primary)
+                                    .padding(.horizontal, DesignSystem.Spacing.l)
+                                    .padding(.vertical, DesignSystem.Spacing.m)
                                     .multilineTextAlignment(.center)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
                             
-                            Button(action: flipCard) {
-                                Text("Show Question")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(buttonGradient)
-                                    .cornerRadius(15)
-                                    .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+                            Spacer()
+                            
+                            VStack(spacing: DesignSystem.Spacing.m) {
+                                Button(action: flipCard) {
+                                    Text("Show Question")
+                                        .font(.system(size: 17, weight: .semibold, design: .rounded))
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, DesignSystem.Spacing.l)
+                                        .padding(.vertical, DesignSystem.Spacing.s)
+                                        .background(buttonGradient)
+                                        .cornerRadius(DesignSystem.CornerRadius.medium)
+                                        .shadow(
+                                            color: DesignSystem.Shadow.small.color,
+                                            radius: DesignSystem.Shadow.small.radius,
+                                            x: DesignSystem.Shadow.small.x,
+                                            y: DesignSystem.Shadow.small.y
+                                        )
+                                }
+                                
+                                // Add favorite button under Show Question
+                                if let onFavoriteToggle = onFavoriteToggle {
+                                    Button(action: onFavoriteToggle) {
+                                        Image(systemName: flashcard.isFavorite ? "star.fill" : "star")
+                                            .foregroundColor(ColorTheme.Interactive.favorite)
+                                            .font(.system(size: 24, weight: .medium))
+                                    }
+                                }
                             }
-                            .padding(.bottom)
+                            .padding(.bottom, DesignSystem.Spacing.l)
                         }
-                        .frame(maxWidth: .infinity, maxHeight: 300)
+                        .frame(maxWidth: .infinity, maxHeight: 500)
                         .background(cardGradient)
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                        .cornerRadius(DesignSystem.CornerRadius.large)
+                        .shadow(
+                            color: DesignSystem.Shadow.medium.color,
+                            radius: DesignSystem.Shadow.medium.radius,
+                            x: DesignSystem.Shadow.medium.x,
+                            y: DesignSystem.Shadow.medium.y
+                        )
                         .opacity(isFlipped ? 1 : 0)
                         .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     }
                     .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
-                    .padding()
+                    .padding(DesignSystem.Spacing.m)
                     .offset(offset)
                     .gesture(
                         DragGesture()
@@ -185,42 +196,39 @@ struct FlashcardView: View {
                     .animation(.spring(response: 0.3, dampingFraction: 0.8), value: offset)
                     
                     // Modern swipe instructions
-                    HStack(spacing: 20) {
-                        HStack(spacing: 10) {
+                    HStack(spacing: DesignSystem.Spacing.m) {
+                        HStack(spacing: DesignSystem.Spacing.s) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color("E57373").opacity(0.12))
+                                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
+                                    .fill(ColorTheme.Interactive.error.opacity(0.12))
                                     .frame(width: 44, height: 44)
                                 Image(systemName: "arrow.left")
-                                    .foregroundColor(Color("E57373"))
-                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(ColorTheme.Interactive.error)
+                                    .font(.system(size: 22, weight: .semibold))
                             }
                             Text("Didn't know?\nSwipe left")
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(Color("E57373"))
-                                .multilineTextAlignment(.leading)
+                                .foregroundColor(ColorTheme.Interactive.error)
                         }
-                        Spacer(minLength: 24)
-                        HStack(spacing: 10) {
-                            Text("Knew it!\nSwipe right")
+                        
+                        Spacer()
+                        
+                        HStack(spacing: DesignSystem.Spacing.s) {
+                            Text("Knew it?\nSwipe right")
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(Color("81C784"))
-                                .multilineTextAlignment(.trailing)
+                                .foregroundColor(ColorTheme.Interactive.success)
                             ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color("81C784").opacity(0.12))
+                                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.medium)
+                                    .fill(ColorTheme.Interactive.success.opacity(0.12))
                                     .frame(width: 44, height: 44)
                                 Image(systemName: "arrow.right")
-                                    .foregroundColor(Color("81C784"))
-                                    .font(.system(size: 22, weight: .bold))
+                                    .foregroundColor(ColorTheme.Interactive.success)
+                                    .font(.system(size: 22, weight: .semibold))
                             }
                         }
                     }
-                    .padding(.top, 18)
-                    .padding(.horizontal, 16)
-                    .background(Color("F5F5F5").opacity(0.7))
-                    .cornerRadius(18)
-                    .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 2)
+                    .padding(.horizontal, DesignSystem.Spacing.m)
+                    .padding(.top, DesignSystem.Spacing.m)
                 }
             }
         }
