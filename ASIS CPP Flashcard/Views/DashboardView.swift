@@ -2,7 +2,6 @@ import SwiftUI
 
 struct DashboardView: View {
     @ObservedObject var chapterStore: ChapterStore
-    @State private var showingResetAlert = false
     @Environment(\.colorScheme) var colorScheme
     
     var overallProgress: Double {
@@ -147,27 +146,6 @@ struct DashboardView: View {
                 } header: {
                     Text("Chapter Progress")
                         .foregroundColor(Color("4A6572"))
-                }
-                
-                // Reset Section
-                Section {
-                    Button(action: {
-                        showingResetAlert = true
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.counterclockwise")
-                            Text("Reset All Progress")
-                        }
-                        .foregroundColor(Color("E57373"))
-                    }
-                }
-                .alert("Reset All Progress", isPresented: $showingResetAlert) {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Reset", role: .destructive) {
-                        chapterStore.resetAllProgress()
-                    }
-                } message: {
-                    Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
                 }
             }
             .onAppear {
