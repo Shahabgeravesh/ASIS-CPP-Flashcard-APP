@@ -16,6 +16,8 @@ struct FlashcardView: View {
     @State private var isFlipped = false
     @State private var swipeDirection: SwipeDirection? = nil
     
+    @Environment(\.colorScheme) var colorScheme
+    
     private enum SwipeDirection {
         case left, right
     }
@@ -42,8 +44,15 @@ struct FlashcardView: View {
     var body: some View {
         ZStack {
             // Sky-inspired background
-            Color("E3F2FD")
-                .ignoresSafeArea()
+            LinearGradient(
+                colors: [
+                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
+                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             VStack {
                 if isVisible {

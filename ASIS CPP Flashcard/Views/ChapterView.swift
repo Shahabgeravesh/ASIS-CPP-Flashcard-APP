@@ -1,5 +1,9 @@
 import SwiftUI
 
+// Import the ColorTheme module
+@_exported import struct SwiftUI.Color
+@_exported import struct SwiftUI.LinearGradient
+
 struct ChapterView: View {
     let chapter: Chapter
     let chapterIndex: Int
@@ -11,6 +15,7 @@ struct ChapterView: View {
     @State private var showingProgressView = false
     @State private var offset = CGSize.zero
     @State private var showingQuiz = false
+    @Environment(\.colorScheme) var colorScheme
     
     init(chapter: Chapter, chapterIndex: Int, chapterStore: ChapterStore, initialCardIndex: Int = 0) {
         self.chapter = chapter
@@ -39,8 +44,12 @@ struct ChapterView: View {
     var body: some View {
         ZStack {
             // Sky-inspired background
-            Color("E3F2FD")
-                .ignoresSafeArea()
+            LinearGradient(
+                colors: ColorTheme.Background.gradient(for: colorScheme),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             VStack {
                 if isChapterComplete {
@@ -50,13 +59,14 @@ struct ChapterView: View {
                         // Progress bar
                         VStack(spacing: 8) {
                             ProgressView(value: progressPercentage, total: 100)
+                                .tint(ColorTheme.Progress.fill)
                                 .padding(.horizontal)
                         }
                         
                         // Card counter
                         Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
                             .font(.subheadline)
-                            .foregroundColor(Color("6B8C9A"))
+                            .foregroundColor(ColorTheme.Text.secondary)
                         
                         Spacer()
                         
@@ -151,7 +161,7 @@ struct ChapterView: View {
     }
 }
 
-// Update the completion view to always show 100%
+// Update the completion view to use the new color system
 struct ChapterCompletionView: View {
     let chapter: Chapter
     let chapterStore: ChapterStore
@@ -160,22 +170,24 @@ struct ChapterCompletionView: View {
         VStack(spacing: 20) {
             Image(systemName: "star.fill")
                 .font(.system(size: 60))
-                .foregroundColor(.yellow)
+                .foregroundColor(ColorTheme.Interactive.favorite)
             
             Text("Chapter Mastered!")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(ColorTheme.Text.primary)
             
             Text("Congratulations! You've completed Chapter \(chapter.number)")
                 .font(.headline)
+                .foregroundColor(ColorTheme.Text.secondary)
             
             Text("100% Mastered")
                 .font(.title2)
-                .foregroundColor(.green)
+                .foregroundColor(ColorTheme.Interactive.success)
             
             Text("Keep up the great work!")
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(ColorTheme.Text.secondary)
         }
         .padding()
         .multilineTextAlignment(.center)

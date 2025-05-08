@@ -5,6 +5,7 @@ struct FavoritesView: View {
     @State private var currentCardIndex = 0
     @State private var showingAnswer = false
     @State private var cardOffset = CGSize.zero
+    @Environment(\.colorScheme) var colorScheme
     
     private var favoriteCards: [(chapterIndex: Int, flashcardIndex: Int, flashcard: Flashcard)] {
         chapterStore.getFavoriteFlashcards()
@@ -13,8 +14,15 @@ struct FavoritesView: View {
     var body: some View {
         ZStack {
             // Sky-inspired background
-            Color("E3F2FD")
-                .ignoresSafeArea()
+            LinearGradient(
+                colors: [
+                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
+                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             VStack {
                 if favoriteCards.isEmpty {

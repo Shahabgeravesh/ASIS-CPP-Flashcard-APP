@@ -4,19 +4,27 @@ struct SettingsView: View {
     @ObservedObject var chapterStore: ChapterStore
     @ObservedObject private var settings = UserSettings.shared
     @State private var showingResetAlert = false
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
             // Sky-inspired background
-            Color("E3F2FD")
-                .ignoresSafeArea()
+            LinearGradient(
+                colors: [
+                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
+                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
             List {
                 Section(header: Text("Appearance").foregroundColor(Color("4A6572"))) {
                     Toggle("Dark Mode", isOn: $settings.isDarkMode)
                         .foregroundColor(Color("4A6572"))
                 }
-                .listRowBackground(Color("F5F5F5"))
+                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
                 
                 Section(header: Text("Data Management").foregroundColor(Color("4A6572"))) {
                     Button(action: {
@@ -31,7 +39,7 @@ struct SettingsView: View {
                         }
                     }
                 }
-                .listRowBackground(Color("F5F5F5"))
+                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
                 
                 Section(header: Text("About").foregroundColor(Color("4A6572"))) {
                     VStack(alignment: .leading, spacing: 8) {
@@ -43,7 +51,7 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 4)
                 }
-                .listRowBackground(Color("F5F5F5"))
+                .listRowBackground(colorScheme == .dark ? Color("1A1A1A") : Color("F5F5F5"))
             }
             .onAppear {
                 // Set the list background color to clear

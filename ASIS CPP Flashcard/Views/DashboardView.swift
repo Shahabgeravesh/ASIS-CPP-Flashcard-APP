@@ -61,104 +61,120 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        List {
-            // Overall Progress Section
-            Section {
-                HStack(spacing: 20) {
-                    CircularProgressView(progress: overallProgress)
-                        .frame(width: 70, height: 70)
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text("\(Int(overallProgress))% Complete")
-                                .font(.title3)
-                                .bold()
-                                .foregroundColor(Color("4A6572"))
-                            Text(progressEmoji)
-                        }
-                        Text(motivationalMessage)
-                            .font(.subheadline)
-                            .foregroundColor(Color("6B8C9A"))
-                    }
-                }
-                .padding(.vertical, 8)
-            } header: {
-                Text("Overall Progress")
-                    .foregroundColor(Color("4A6572"))
-            }
+        ZStack {
+            // Sky-inspired background
+            LinearGradient(
+                colors: [
+                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
+                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
             
-            // Quick Stats Section
-            Section {
-                HStack {
-                    StatView(
-                        title: "Mastered",
-                        value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isMastered }.count })",
-                        icon: "star.fill",
-                        color: Color("FFD54F")
-                    )
-                    
-                    Divider()
-                    
-                    StatView(
-                        title: "Total Cards",
-                        value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.count })",
-                        icon: "square.stack.fill",
-                        color: Color("5D7B89")
-                    )
-                }
-                .padding(.vertical, 8)
-            } header: {
-                Text("Statistics")
-                    .foregroundColor(Color("4A6572"))
-            }
-            
-            // Chapter Progress Section
-            Section {
-                ForEach(chapterProgressData, id: \.chapter.number) { item in
-                    VStack(spacing: 8) {
-                        HStack {
-                            Text("Chapter \(item.chapter.number)")
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundColor(Color("4A6572"))
-                            Spacer()
-                            Text("\(Int(item.progress))%")
+            List {
+                // Overall Progress Section
+                Section {
+                    HStack(spacing: 20) {
+                        CircularProgressView(progress: overallProgress)
+                            .frame(width: 70, height: 70)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text("\(Int(overallProgress))% Complete")
+                                    .font(.title3)
+                                    .bold()
+                                    .foregroundColor(Color("4A6572"))
+                                Text(progressEmoji)
+                            }
+                            Text(motivationalMessage)
                                 .font(.subheadline)
                                 .foregroundColor(Color("6B8C9A"))
                         }
-                        
-                        ProgressBar(progress: item.progress)
-                            .tint(Color("5D7B89"))
                     }
-                    .padding(.vertical, 4)
+                    .padding(.vertical, 8)
+                } header: {
+                    Text("Overall Progress")
+                        .foregroundColor(Color("4A6572"))
                 }
-            } header: {
-                Text("Chapter Progress")
-                    .foregroundColor(Color("4A6572"))
-            }
-            
-            // Reset Section
-            Section {
-                Button(action: {
-                    showingResetAlert = true
-                }) {
+                
+                // Quick Stats Section
+                Section {
                     HStack {
-                        Image(systemName: "arrow.counterclockwise")
-                        Text("Reset All Progress")
+                        StatView(
+                            title: "Mastered",
+                            value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isMastered }.count })",
+                            icon: "star.fill",
+                            color: Color("FFD54F")
+                        )
+                        
+                        Divider()
+                        
+                        StatView(
+                            title: "Total Cards",
+                            value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.count })",
+                            icon: "square.stack.fill",
+                            color: Color("5D7B89")
+                        )
                     }
-                    .foregroundColor(Color("E57373"))
+                    .padding(.vertical, 8)
+                } header: {
+                    Text("Statistics")
+                        .foregroundColor(Color("4A6572"))
+                }
+                
+                // Chapter Progress Section
+                Section {
+                    ForEach(chapterProgressData, id: \.chapter.number) { item in
+                        VStack(spacing: 8) {
+                            HStack {
+                                Text("Chapter \(item.chapter.number)")
+                                    .font(.subheadline)
+                                    .bold()
+                                    .foregroundColor(Color("4A6572"))
+                                Spacer()
+                                Text("\(Int(item.progress))%")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color("6B8C9A"))
+                            }
+                            
+                            ProgressBar(progress: item.progress)
+                                .tint(Color("5D7B89"))
+                        }
+                        .padding(.vertical, 4)
+                    }
+                } header: {
+                    Text("Chapter Progress")
+                        .foregroundColor(Color("4A6572"))
+                }
+                
+                // Reset Section
+                Section {
+                    Button(action: {
+                        showingResetAlert = true
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.counterclockwise")
+                            Text("Reset All Progress")
+                        }
+                        .foregroundColor(Color("E57373"))
+                    }
+                }
+                .alert("Reset All Progress", isPresented: $showingResetAlert) {
+                    Button("Cancel", role: .cancel) { }
+                    Button("Reset", role: .destructive) {
+                        chapterStore.resetAllProgress()
+                    }
+                } message: {
+                    Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
                 }
             }
-            .alert("Reset All Progress", isPresented: $showingResetAlert) {
-                Button("Cancel", role: .cancel) { }
-                Button("Reset", role: .destructive) {
-                    chapterStore.resetAllProgress()
-                }
-            } message: {
-                Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
+            .onAppear {
+                // Set the list background color to clear
+                UITableView.appearance().backgroundColor = .clear
             }
         }
-        .background(Color("E3F2FD"))
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
     }
