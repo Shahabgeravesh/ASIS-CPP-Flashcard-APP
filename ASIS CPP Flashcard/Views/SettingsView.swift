@@ -21,10 +21,6 @@ struct SettingsView: View {
                     Text("ASIS CPP Flashcards")
                         .font(.title2)
                         .fontWeight(.bold)
-                    
-                    Text("Version 3.7.3")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(24)

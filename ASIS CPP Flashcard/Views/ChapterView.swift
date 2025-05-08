@@ -62,7 +62,7 @@ struct ChapterView: View {
                         // Card counter
                         Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
                             .font(.subheadline)
-                            .foregroundStyle(Color(.secondaryLabel))
+                            .foregroundColor(.primary)
                         
                         Spacer()
                         
@@ -166,24 +166,24 @@ struct ChapterCompletionView: View {
         VStack(spacing: 20) {
             Image(systemName: "star.fill")
                 .font(.system(size: 60))
-                .foregroundColor(ColorTheme.Interactive.favorite)
+                .foregroundColor(.yellow)
             
             Text("Chapter Mastered!")
                 .font(.title)
                 .fontWeight(.bold)
-                .foregroundColor(ColorTheme.Text.primary)
+                .foregroundColor(.primary)
             
             Text("Congratulations! You've completed Chapter \(chapter.number)")
                 .font(.headline)
-                .foregroundColor(ColorTheme.Text.secondary)
+                .foregroundColor(.primary)
             
             Text("100% Mastered")
                 .font(.title2)
-                .foregroundColor(ColorTheme.Interactive.success)
+                .foregroundColor(.green)
             
             Text("Keep up the great work!")
                 .font(.subheadline)
-                .foregroundColor(ColorTheme.Text.secondary)
+                .foregroundColor(.primary)
         }
         .padding()
         .multilineTextAlignment(.center)
