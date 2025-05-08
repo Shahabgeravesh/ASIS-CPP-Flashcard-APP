@@ -7,29 +7,6 @@ struct SettingsView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Instructions")) {
-                VStack(alignment: .leading, spacing: 12) {
-                    InstructionRow(
-                        icon: "hand.tap",
-                        title: "Tap card",
-                        description: "to show the answer"
-                    )
-                    
-                    InstructionRow(
-                        icon: "hand.draw",
-                        title: "Swipe right",
-                        description: "when you've mastered the card"
-                    )
-                    
-                    InstructionRow(
-                        icon: "arrow.left",
-                        title: "Swipe left",
-                        description: "to mark for review"
-                    )
-                }
-                .padding(.vertical, 8)
-            }
-            
             Section(header: Text("Appearance")) {
                 Toggle("Dark Mode", isOn: $settings.isDarkMode)
             }
@@ -51,7 +28,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("ASIS CPP Flashcards")
                         .font(.headline)
-                    Text("Version 3.7.2")
+                    Text("Version 3.7.3")
                         .foregroundColor(.secondary)
                 }
                 .padding(.vertical, 4)
@@ -66,29 +43,6 @@ struct SettingsView: View {
             }
         } message: {
             Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
-        }
-    }
-}
-
-struct InstructionRow: View {
-    let icon: String
-    let title: String
-    let description: String
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(.blue)
-                .frame(width: 30)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.headline)
-                Text(description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
         }
     }
 } 
