@@ -16,7 +16,11 @@ struct ChapterView: View {
         self.chapter = chapter
         self.chapterIndex = chapterIndex
         self.chapterStore = chapterStore
-        _currentCardIndex = State(initialValue: initialCardIndex)
+        
+        // Find the first unmastered card or start from the beginning
+        let unmasteredCards = chapter.flashcards.indices.filter { !chapter.flashcards[$0].isMastered }
+        let startIndex = unmasteredCards.isEmpty ? initialCardIndex : unmasteredCards[0]
+        _currentCardIndex = State(initialValue: startIndex)
     }
     
     var unfinishedCards: [Int] {
@@ -34,153 +38,91 @@ struct ChapterView: View {
     
     var body: some View {
         ZStack {
-            if chapter.flashcards.isEmpty {
-                // Show message when no flashcards are available
-                VStack {
-                    Text("No flashcards available for this chapter")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
-                        .padding()
-                }
-                .navigationTitle("Chapter \(chapter.number)")
-                .navigationBarTitleDisplayMode(.inline)
-            } else if isChapterComplete {
-                ChapterCompletionView(chapter: chapter)
-            } else {
-                VStack(spacing: 16) {
-                    // Header with progress
-                    VStack(spacing: 8) {
-                        HStack {
-                            Text("\(Int(progressPercentage))% Mastered")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Spacer()
-                            
-                            NavigationLink(isActive: $showingProgressView) {
-                                ChapterProgressView(
-                                    chapter: chapter,
-                                    chapterIndex: chapterIndex,
-                                    chapterStore: chapterStore
-                                )
-                            } label: {
-                                HStack(spacing: 4) {
-                                    Text("View Progress")
-                                        .font(.subheadline)
-                                    Image(systemName: "chart.bar.fill")
-                                }
-                                .foregroundColor(.blue)
-                            }
+            // Sky-inspired background
+            Color("E3F2FD")
+                .ignoresSafeArea()
+            
+            VStack {
+                if isChapterComplete {
+                    ChapterCompletionView(chapter: chapter, chapterStore: chapterStore)
+                } else {
+                    VStack(spacing: 20) {
+                        // Progress bar
+                        VStack(spacing: 8) {
+                            ProgressView(value: progressPercentage, total: 100)
+                                .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                         
-                        ProgressView(value: progressPercentage, total: 100)
+                        // Card counter
+                        Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
+                            .font(.subheadline)
+                            .foregroundColor(Color("6B8C9A"))
+                        
+                        Spacer()
+                        
+                        // Flashcard
+                        FlashcardView(
+                            flashcard: chapter.flashcards[currentCardIndex],
+                            showingAnswer: $showingAnswer,
+                            onAnswerViewed: {
+                                chapterStore.markFlashcardAsReviewed(
+                                    chapterIndex: chapterIndex,
+                                    flashcardIndex: currentCardIndex
+                                )
+                            },
+                            onSwipeLeft: {
+                                handleNeedsReview()
+                                moveToNextCard()
+                            },
+                            onSwipeRight: {
+                                handleMastered()
+                                moveToNextCard()
+                            },
+                            offset: $offset,
+                            onFavoriteToggle: {
+                                chapterStore.toggleFavorite(
+                                    chapterIndex: chapterIndex,
+                                    flashcardIndex: currentCardIndex
+                                )
+                            }
+                        )
+                        
+                        Spacer()
+                        
+                        // Quiz button
+                        QuizButton(action: { showingQuiz = true })
                             .padding(.horizontal)
                     }
-                    
-                    // Card counter
-                    Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    // Flashcard
-                    FlashcardView(
-                        flashcard: chapter.flashcards[currentCardIndex],
-                        showingAnswer: $showingAnswer,
-                        onAnswerViewed: {
-                            chapterStore.markFlashcardAsReviewed(
-                                chapterIndex: chapterIndex,
-                                flashcardIndex: currentCardIndex
-                            )
-                        },
-                        onSwipeLeft: {
-                            handleNeedsReview()
-                            moveToNextCard()
-                        },
-                        onSwipeRight: {
-                            handleMastered()
-                            moveToNextCard()
-                        },
-                        offset: $offset,
-                        onFavoriteToggle: {
-                            chapterStore.toggleFavorite(
-                                chapterIndex: chapterIndex,
-                                flashcardIndex: currentCardIndex
-                            )
-                        }
-                    )
-                    
-                    Spacer()
-                    
-                    // Update the quiz button section
-                    VStack(spacing: 16) {
-                        Divider()
-                        
-                        Button(action: {
-                            showingQuiz = true
-                        }) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "square.text.square.fill")
-                                    .font(.title2)
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text("Take Quiz")
-                                        .font(.headline)
-                                    
-                                    Text("50 random questions")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.accentColor.opacity(0.1))
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .strokeBorder(Color.accentColor.opacity(0.3), lineWidth: 1)
-                            )
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(.horizontal)
+                }
+            }
+            .navigationTitle("Chapter \(chapter.number)")
+            .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $showingQuiz) {
+                NavigationView {
+                    QuizView(chapter: chapter, chapterStore: chapterStore)
+                }
+                .interactiveDismissDisabled()
+            }
+            .alert("Chapter Mastered! 🎉", isPresented: $showingCompletionAlert) {
+                Button("View Chapter Summary") {
+                    withAnimation {
+                        // The view will re-evaluate and show ChapterCompletionView
                     }
                 }
-                .navigationTitle("Chapter \(chapter.number)")
-                .navigationBarTitleDisplayMode(.inline)
-                .fullScreenCover(isPresented: $showingQuiz) {
-                    NavigationView {
-                        QuizView(chapter: chapter, chapterStore: chapterStore)
-                    }
-                    .interactiveDismissDisabled()
-                }
-                .alert("Chapter Mastered! 🎉", isPresented: $showingCompletionAlert) {
-                    Button("View Chapter Summary") {
-                        withAnimation {
-                            // The view will re-evaluate and show ChapterCompletionView
-                        }
-                    }
-                } message: {
-                    Text("Congratulations! You've mastered all cards in this chapter.")
-                }
+            } message: {
+                Text("Congratulations! You've mastered all cards in this chapter.")
             }
         }
     }
     
     private func moveToNextCard() {
         withAnimation {
-            if currentCardIndex < chapter.flashcards.count - 1 {
-                currentCardIndex += 1
+            // Find the next unmastered card
+            let unmasteredCards = chapter.flashcards.indices.filter { !chapter.flashcards[$0].isMastered }
+            if let nextIndex = unmasteredCards.first(where: { $0 > currentCardIndex }) {
+                currentCardIndex = nextIndex
+            } else if !unmasteredCards.isEmpty {
+                currentCardIndex = unmasteredCards[0]
             } else {
                 currentCardIndex = 0
             }
@@ -212,6 +154,7 @@ struct ChapterView: View {
 // Update the completion view to always show 100%
 struct ChapterCompletionView: View {
     let chapter: Chapter
+    let chapterStore: ChapterStore
     
     var body: some View {
         VStack(spacing: 20) {

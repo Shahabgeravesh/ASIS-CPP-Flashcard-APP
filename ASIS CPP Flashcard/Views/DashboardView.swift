@@ -73,16 +73,18 @@ struct DashboardView: View {
                             Text("\(Int(overallProgress))% Complete")
                                 .font(.title3)
                                 .bold()
+                                .foregroundColor(Color("4A6572"))
                             Text(progressEmoji)
                         }
                         Text(motivationalMessage)
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color("6B8C9A"))
                     }
                 }
                 .padding(.vertical, 8)
             } header: {
                 Text("Overall Progress")
+                    .foregroundColor(Color("4A6572"))
             }
             
             // Quick Stats Section
@@ -92,7 +94,7 @@ struct DashboardView: View {
                         title: "Mastered",
                         value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isMastered }.count })",
                         icon: "star.fill",
-                        color: .yellow
+                        color: Color("FFD54F")
                     )
                     
                     Divider()
@@ -101,12 +103,13 @@ struct DashboardView: View {
                         title: "Total Cards",
                         value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.count })",
                         icon: "square.stack.fill",
-                        color: .blue
+                        color: Color("5D7B89")
                     )
                 }
                 .padding(.vertical, 8)
             } header: {
                 Text("Statistics")
+                    .foregroundColor(Color("4A6572"))
             }
             
             // Chapter Progress Section
@@ -117,18 +120,21 @@ struct DashboardView: View {
                             Text("Chapter \(item.chapter.number)")
                                 .font(.subheadline)
                                 .bold()
+                                .foregroundColor(Color("4A6572"))
                             Spacer()
                             Text("\(Int(item.progress))%")
                                 .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color("6B8C9A"))
                         }
                         
                         ProgressBar(progress: item.progress)
+                            .tint(Color("5D7B89"))
                     }
                     .padding(.vertical, 4)
                 }
             } header: {
                 Text("Chapter Progress")
+                    .foregroundColor(Color("4A6572"))
             }
             
             // Reset Section
@@ -140,7 +146,7 @@ struct DashboardView: View {
                         Image(systemName: "arrow.counterclockwise")
                         Text("Reset All Progress")
                     }
-                    .foregroundColor(.red)
+                    .foregroundColor(Color("E57373"))
                 }
             }
             .alert("Reset All Progress", isPresented: $showingResetAlert) {
@@ -152,6 +158,7 @@ struct DashboardView: View {
                 Text("Warning: This will permanently erase all your progress. This action cannot be undone. Are you sure you want to continue?")
             }
         }
+        .background(Color("E3F2FD"))
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -170,7 +177,7 @@ struct CircularProgressView: View {
                 .trim(from: 0, to: progress / 100)
                 .stroke(
                     LinearGradient(
-                        gradient: Gradient(colors: [.blue, .blue.opacity(0.7)]),
+                        gradient: Gradient(colors: [Color("4FC3F7"), Color("81D4FA")]),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     ),
@@ -189,22 +196,21 @@ struct StatView: View {
     let color: Color
     
     var body: some View {
-        HStack {
+        VStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.title2)
+                .font(.system(size: 24))
                 .foregroundColor(color)
-                .frame(width: 30)
             
-            VStack(alignment: .leading, spacing: 4) {
-                Text(value)
-                    .font(.title3)
-                    .bold()
-                Text(title)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            Spacer()
+            Text(value)
+                .font(.title2)
+                .bold()
+                .foregroundColor(Color("4A6572"))
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(Color("6B8C9A"))
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -214,21 +220,17 @@ struct ProgressBar: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.gray.opacity(0.15))
-                    .frame(height: 6)
+                Rectangle()
+                    .frame(width: geometry.size.width, height: 8)
+                    .opacity(0.1)
+                    .foregroundColor(Color("5D7B89"))
                 
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [.blue, .blue.opacity(0.7)]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .frame(width: geometry.size.width * CGFloat(progress / 100), height: 6)
+                Rectangle()
+                    .frame(width: min(CGFloat(progress) / 100 * geometry.size.width, geometry.size.width), height: 8)
+                    .foregroundColor(Color("5D7B89"))
             }
+            .cornerRadius(4)
         }
-        .frame(height: 6)
+        .frame(height: 8)
     }
 } 

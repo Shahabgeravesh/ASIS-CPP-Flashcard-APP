@@ -6,32 +6,48 @@ struct SettingsView: View {
     @State private var showingResetAlert = false
     
     var body: some View {
-        List {
-            Section(header: Text("Appearance")) {
-                Toggle("Dark Mode", isOn: $settings.isDarkMode)
-            }
+        ZStack {
+            // Sky-inspired background
+            Color("E3F2FD")
+                .ignoresSafeArea()
             
-            Section(header: Text("Data Management")) {
-                Button(action: {
-                    showingResetAlert = true
-                }) {
-                    HStack {
-                        Text("Reset All Progress")
-                            .foregroundColor(.red)
-                        Spacer()
-                        Image(systemName: "arrow.counterclockwise")
+            List {
+                Section(header: Text("Appearance").foregroundColor(Color("4A6572"))) {
+                    Toggle("Dark Mode", isOn: $settings.isDarkMode)
+                        .foregroundColor(Color("4A6572"))
+                }
+                .listRowBackground(Color("F5F5F5"))
+                
+                Section(header: Text("Data Management").foregroundColor(Color("4A6572"))) {
+                    Button(action: {
+                        showingResetAlert = true
+                    }) {
+                        HStack {
+                            Text("Reset All Progress")
+                                .foregroundColor(Color("E57373"))
+                            Spacer()
+                            Image(systemName: "arrow.counterclockwise")
+                                .foregroundColor(Color("E57373"))
+                        }
                     }
                 }
-            }
-            
-            Section(header: Text("About")) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("ASIS CPP Flashcards")
-                        .font(.headline)
-                    Text("Version 3.7.3")
-                        .foregroundColor(.secondary)
+                .listRowBackground(Color("F5F5F5"))
+                
+                Section(header: Text("About").foregroundColor(Color("4A6572"))) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("ASIS CPP Flashcards")
+                            .font(.headline)
+                            .foregroundColor(Color("4A6572"))
+                        Text("Version 3.7.3")
+                            .foregroundColor(Color("6B8C9A"))
+                    }
+                    .padding(.vertical, 4)
                 }
-                .padding(.vertical, 4)
+                .listRowBackground(Color("F5F5F5"))
+            }
+            .onAppear {
+                // Set the list background color to clear
+                UITableView.appearance().backgroundColor = .clear
             }
         }
         .navigationTitle("Settings")
