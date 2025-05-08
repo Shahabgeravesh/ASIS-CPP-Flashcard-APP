@@ -43,13 +43,9 @@ struct ChapterView: View {
     
     var body: some View {
         ZStack {
-            // Sky-inspired background
-            LinearGradient(
-                colors: ColorTheme.Background.gradient(for: colorScheme),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // System background
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             VStack {
                 if isChapterComplete {
@@ -59,14 +55,14 @@ struct ChapterView: View {
                         // Progress bar
                         VStack(spacing: 8) {
                             ProgressView(value: progressPercentage, total: 100)
-                                .tint(ColorTheme.Progress.fill)
+                                .tint(Color(.systemBlue))
                                 .padding(.horizontal)
                         }
                         
                         // Card counter
                         Text("Card \(currentCardIndex + 1) of \(chapter.flashcards.count)")
                             .font(.subheadline)
-                            .foregroundColor(ColorTheme.Text.secondary)
+                            .foregroundStyle(Color(.secondaryLabel))
                         
                         Spacer()
                         

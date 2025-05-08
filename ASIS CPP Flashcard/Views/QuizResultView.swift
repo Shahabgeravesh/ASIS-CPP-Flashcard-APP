@@ -93,6 +93,7 @@ struct QuestionReviewSection: View {
         VStack(alignment: .leading, spacing: 20) {
             Text("Question Review")
                 .font(.headline)
+                .foregroundStyle(Color(.label))
                 .padding(.top)
             
             ForEach(questions.indices, id: \.self) { index in
@@ -100,29 +101,32 @@ struct QuestionReviewSection: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Question \(index + 1)")
                         .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(Color(.secondaryLabel))
                     
                     Text(question.question)
                         .font(.body)
+                        .foregroundStyle(Color(.label))
                     
                     if let selected = question.selectedAnswerIndex {
                         HStack {
                             Text("Your answer: ")
+                                .foregroundStyle(Color(.label))
                             Text(question.options[selected])
-                                .foregroundColor(selected == question.correctAnswerIndex ? .green : .red)
+                                .foregroundStyle(selected == question.correctAnswerIndex ? Color(.systemGreen) : Color(.systemRed))
                         }
                         
                         if selected != question.correctAnswerIndex {
                             HStack {
                                 Text("Correct answer: ")
+                                    .foregroundStyle(Color(.label))
                                 Text(question.options[question.correctAnswerIndex])
-                                    .foregroundColor(.green)
+                                    .foregroundStyle(Color(.systemGreen))
                             }
                         }
                     }
                 }
                 .padding()
-                .background(Color.secondary.opacity(0.1))
+                .background(Color(.systemGray6))
                 .cornerRadius(10)
             }
         }

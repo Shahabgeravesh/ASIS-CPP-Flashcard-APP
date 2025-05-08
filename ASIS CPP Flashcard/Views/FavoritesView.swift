@@ -13,159 +13,193 @@ struct FavoritesView: View {
     
     var body: some View {
         ZStack {
-            // Sky-inspired background
-            LinearGradient(
-                colors: [
-                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
-                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // System background
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             VStack {
                 if favoriteCards.isEmpty {
-                    NoFavoritesView()
-                } else {
-                    let currentCard = favoriteCards[currentCardIndex]
-                    
-                    // Progress counter (not progress tracking)
-                    VStack(spacing: 8) {
-                        Text("\(currentCardIndex + 1) of \(favoriteCards.count)")
-                            .font(.caption)
-                            .foregroundColor(Color("6B8C9A"))
-                    }
-                    .padding(.top)
-                    
-                    Spacer()
-                    
-                    // Card view with horizontal swipe for navigation only
                     VStack(spacing: 20) {
-                        // Card content
-                        VStack {
-                            if showingAnswer {
-                                ScrollView {
-                                    Text(currentCard.flashcard.answer)
-                                        .font(.title3)
-                                        .padding()
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Color("4A6572"))
-                                }
-                            } else {
-                                Text(currentCard.flashcard.question)
-                                    .font(.title3)
-                                    .padding()
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(Color("4A6572"))
-                            }
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 200)
-                        .background(Color("F5F5F5"))
-                        .cornerRadius(20)
-                        .shadow(color: Color.black.opacity(0.1), radius: 10)
-                        .offset(x: cardOffset.width)
-                        .gesture(
-                            DragGesture()
-                                .onChanged { gesture in
-                                    cardOffset = gesture.translation
-                                }
-                                .onEnded { gesture in
-                                    let threshold: CGFloat = 50
-                                    withAnimation(.spring()) {
-                                        if gesture.translation.width > threshold && currentCardIndex > 0 {
-                                            moveToPreviousCard()
-                                        } else if gesture.translation.width < -threshold && currentCardIndex < favoriteCards.count - 1 {
-                                            moveToNextCard()
-                                        }
-                                        cardOffset = .zero
-                                    }
-                                }
-                        )
+                        Image(systemName: "star.slash")
+                            .font(.system(size: 60))
+                            .foregroundStyle(Color(.systemBlue))
                         
-                        // Controls
-                        VStack(spacing: 16) {
-                            Button(action: { showingAnswer.toggle() }) {
-                                Text(showingAnswer ? "Show Question" : "Show Answer")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
-                                    .background(
-                                        LinearGradient(
-                                            colors: [Color("4FC3F7"), Color("81D4FA")],
-                                            startPoint: .leading,
-                                            endPoint: .trailing
-                                        )
-                                    )
-                                    .cornerRadius(15)
-                            }
-                            
-                            Button(action: {
-                                chapterStore.toggleFavorite(
-                                    chapterIndex: currentCard.chapterIndex,
-                                    flashcardIndex: currentCard.flashcardIndex
-                                )
-                                handleCardRemoval()
-                            }) {
-                                HStack {
-                                    Image(systemName: "star.slash.fill")
-                                    Text("Remove from Favorites")
-                                }
-                                .foregroundColor(Color("E57373"))
-                                .padding(.horizontal, 24)
-                                .padding(.vertical, 12)
-                                .background(Color("E57373").opacity(0.1))
-                                .cornerRadius(15)
-                            }
-                        }
+                        Text("No Favorites Yet")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color(.label))
+                        
+                        Text("Add cards to your favorites by tapping the star icon while studying")
+                            .font(.body)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Color(.secondaryLabel))
+                            .padding(.horizontal)
                     }
                     .padding()
-                    
-                    Spacer()
-                    
-                    // Navigation buttons
-                    HStack(spacing: 40) {
-                        Button(action: moveToPreviousCard) {
-                            Image(systemName: "arrow.left.circle.fill")
-                                .font(.title)
-                                .foregroundColor(Color("4FC3F7"))
-                        }
-                        .disabled(currentCardIndex == 0)
-                        .opacity(currentCardIndex == 0 ? 0.5 : 1)
+                } else {
+                    VStack {
+                        // Progress indicator
+                        Text("\(currentCardIndex + 1) of \(favoriteCards.count)")
+                            .font(.subheadline)
+                            .foregroundStyle(Color(.secondaryLabel))
+                            .padding(.top)
                         
-                        Button(action: moveToNextCard) {
-                            Image(systemName: "arrow.right.circle.fill")
-                                .font(.title)
-                                .foregroundColor(Color("4FC3F7"))
+                        // Flashcard
+                        ZStack {
+                            // Front of card
+                            if !showingAnswer {
+                                VStack(spacing: 20) {
+                                    Text(favoriteCards[currentCardIndex].flashcard.question)
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundStyle(Color(.label))
+                                        .padding()
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        withAnimation {
+                                            showingAnswer = true
+                                        }
+                                    }) {
+                                        Text("Show Answer")
+                                            .font(.headline)
+                                            .foregroundStyle(Color(.label))
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color(.systemBlue))
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    }
+                                    .padding(.horizontal)
+                                    
+                                    Button(action: {
+                                        chapterStore.toggleFavorite(
+                                            chapterIndex: favoriteCards[currentCardIndex].chapterIndex,
+                                            flashcardIndex: favoriteCards[currentCardIndex].flashcardIndex
+                                        )
+                                        handleCardRemoval()
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "star.slash.fill")
+                                            Text("Remove from Favorites")
+                                        }
+                                        .foregroundStyle(Color(.systemRed))
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color(.systemRed).opacity(0.1))
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.bottom)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: 400)
+                                .background(Color(.systemBackground))
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .shadow(color: Color(.systemGray), radius: 10, x: 0, y: 5)
+                                .rotation3DEffect(
+                                    .degrees(showingAnswer ? 180 : 0),
+                                    axis: (x: 0, y: 1, z: 0)
+                                )
+                            }
+                            
+                            // Back of card
+                            if showingAnswer {
+                                VStack(spacing: 20) {
+                                    Text(favoriteCards[currentCardIndex].flashcard.answer)
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundStyle(Color(.label))
+                                        .padding()
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        withAnimation {
+                                            showingAnswer = false
+                                        }
+                                    }) {
+                                        Text("Show Question")
+                                            .font(.headline)
+                                            .foregroundStyle(Color(.label))
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(Color(.systemBlue))
+                                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    }
+                                    .padding(.horizontal)
+                                    
+                                    Button(action: {
+                                        chapterStore.toggleFavorite(
+                                            chapterIndex: favoriteCards[currentCardIndex].chapterIndex,
+                                            flashcardIndex: favoriteCards[currentCardIndex].flashcardIndex
+                                        )
+                                        handleCardRemoval()
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "star.slash.fill")
+                                            Text("Remove from Favorites")
+                                        }
+                                        .foregroundStyle(Color(.systemRed))
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color(.systemRed).opacity(0.1))
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.bottom)
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: 500)
+                                .background(Color(.systemBackground))
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .shadow(color: Color(.systemGray), radius: 10, x: 0, y: 5)
+                                .rotation3DEffect(
+                                    .degrees(showingAnswer ? 0 : -180),
+                                    axis: (x: 0, y: 1, z: 0)
+                                )
+                            }
                         }
-                        .disabled(currentCardIndex == favoriteCards.count - 1)
-                        .opacity(currentCardIndex == favoriteCards.count - 1 ? 0.5 : 1)
+                        .padding()
+                        
+                        // Navigation buttons
+                        HStack(spacing: 40) {
+                            Button(action: previousCard) {
+                                Image(systemName: "arrow.left.circle.fill")
+                                    .font(.system(size: 44))
+                                    .foregroundStyle(Color(.systemBlue))
+                            }
+                            .disabled(currentCardIndex == 0)
+                            .opacity(currentCardIndex == 0 ? 0.5 : 1)
+                            
+                            Button(action: nextCard) {
+                                Image(systemName: "arrow.right.circle.fill")
+                                    .font(.system(size: 44))
+                                    .foregroundStyle(Color(.systemBlue))
+                            }
+                            .disabled(currentCardIndex == favoriteCards.count - 1)
+                            .opacity(currentCardIndex == favoriteCards.count - 1 ? 0.5 : 1)
+                        }
+                        .padding(.bottom)
                     }
-                    .padding(.bottom)
                 }
             }
         }
         .navigationTitle("Favorites")
-        .onChange(of: favoriteCards.count) { newCount in
-            if newCount > 0 && currentCardIndex >= newCount {
-                currentCardIndex = newCount - 1
-            }
-        }
     }
     
-    private func moveToNextCard() {
-        withAnimation {
-            if currentCardIndex < favoriteCards.count - 1 {
+    private func nextCard() {
+        if currentCardIndex < favoriteCards.count - 1 {
+            withAnimation {
                 currentCardIndex += 1
                 showingAnswer = false
             }
         }
     }
     
-    private func moveToPreviousCard() {
-        withAnimation {
-            if currentCardIndex > 0 {
+    private func previousCard() {
+        if currentCardIndex > 0 {
+            withAnimation {
                 currentCardIndex -= 1
                 showingAnswer = false
             }

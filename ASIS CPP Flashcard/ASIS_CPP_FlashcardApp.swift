@@ -82,48 +82,48 @@ struct ColorTheme {
     // MARK: - Text Colors
     struct Text {
         /// Primary text color
-        static let primary = Color(hex: "000000")  // System primary text
+        static let primary = Color(.label)  // System primary text
         
         /// Secondary text color
-        static let secondary = Color(hex: "6C6C70")  // System secondary text
+        static let secondary = Color(.secondaryLabel)  // System secondary text
         
         /// Accent text color
-        static let accent = Color(hex: "007AFF")  // System blue
+        static let accent = Color(.systemBlue)  // System blue
     }
     
     // MARK: - Interactive Elements
     struct Interactive {
         /// Primary button gradient
         static let primaryGradient = LinearGradient(
-            colors: [Color(hex: "007AFF"), Color(hex: "5856D6")],
+            colors: [Color(.systemBlue), Color(.systemIndigo)],
             startPoint: .leading,
             endPoint: .trailing
         )
         
         /// Success color (for correct answers, mastered cards)
-        static let success = Color(hex: "34C759")  // System green
+        static let success = Color(.systemGreen)  // System green
         
         /// Warning color (for incorrect answers, needs review)
-        static let warning = Color(hex: "FF9500")  // System orange
+        static let warning = Color(.systemOrange)  // System orange
         
         /// Error color
-        static let error = Color(hex: "FF3B30")    // System red
+        static let error = Color(.systemRed)    // System red
         
         /// Favorite color
-        static let favorite = Color(hex: "FF9500")  // System orange
+        static let favorite = Color(.systemOrange)  // System orange
     }
     
     // MARK: - Progress Indicators
     struct Progress {
         /// Progress bar background
-        static let background = Color(hex: "E5E5EA")  // System gray 5
+        static let background = Color(.systemGray5)  // System gray 5
         
         /// Progress bar fill
-        static let fill = Color(hex: "007AFF")        // System blue
+        static let fill = Color(.systemBlue)        // System blue
         
         /// Progress bar gradient
         static let gradient = LinearGradient(
-            colors: [Color(hex: "4FC3F7"), Color(hex: "81D4FA")],
+            colors: [Color(.systemBlue), Color(.systemBlue).opacity(0.7)],
             startPoint: .leading,
             endPoint: .trailing
         )
@@ -133,7 +133,7 @@ struct ColorTheme {
     struct Card {
         /// Card background gradient
         static let gradient = LinearGradient(
-            colors: [Color(hex: "E3F2FD"), Color(hex: "BBDEFB")],
+            colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.95)],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
@@ -141,8 +141,8 @@ struct ColorTheme {
         /// Card border gradient
         static let borderGradient = LinearGradient(
             colors: [
-                Color(hex: "4FC3F7").opacity(0.3),
-                Color(hex: "81D4FA").opacity(0.1)
+                Color(.systemBlue).opacity(0.3),
+                Color(.systemBlue).opacity(0.1)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing

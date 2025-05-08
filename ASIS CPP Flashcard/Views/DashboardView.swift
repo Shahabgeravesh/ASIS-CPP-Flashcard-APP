@@ -61,12 +61,9 @@ struct DashboardView: View {
     
     var body: some View {
         ZStack {
-            // Sky-inspired background
+            // System background
             LinearGradient(
-                colors: [
-                    colorScheme == .dark ? Color("1A1A1A") : Color("E3F2FD"),
-                    colorScheme == .dark ? Color("2A2A2A") : Color("BBDEFB")
-                ],
+                colors: ColorTheme.Background.gradient(for: colorScheme),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -84,18 +81,18 @@ struct DashboardView: View {
                                 Text("\(Int(overallProgress))% Complete")
                                     .font(.title3)
                                     .bold()
-                                    .foregroundColor(Color("4A6572"))
+                                    .foregroundColor(ColorTheme.Text.primary)
                                 Text(progressEmoji)
                             }
                             Text(motivationalMessage)
                                 .font(.subheadline)
-                                .foregroundColor(Color("6B8C9A"))
+                                .foregroundColor(ColorTheme.Text.secondary)
                         }
                     }
                     .padding(.vertical, 8)
                 } header: {
                     Text("Overall Progress")
-                        .foregroundColor(Color("4A6572"))
+                        .foregroundColor(ColorTheme.Text.primary)
                 }
                 
                 // Quick Stats Section
@@ -105,7 +102,7 @@ struct DashboardView: View {
                             title: "Mastered",
                             value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.filter { $0.isMastered }.count })",
                             icon: "star.fill",
-                            color: Color("FFD54F")
+                            color: ColorTheme.Interactive.warning
                         )
                         
                         Divider()
@@ -114,13 +111,13 @@ struct DashboardView: View {
                             title: "Total Cards",
                             value: "\(chapterStore.chapters.reduce(0) { $0 + $1.flashcards.count })",
                             icon: "square.stack.fill",
-                            color: Color("5D7B89")
+                            color: ColorTheme.Text.accent
                         )
                     }
                     .padding(.vertical, 8)
                 } header: {
                     Text("Statistics")
-                        .foregroundColor(Color("4A6572"))
+                        .foregroundColor(ColorTheme.Text.primary)
                 }
                 
                 // Chapter Progress Section
@@ -131,21 +128,20 @@ struct DashboardView: View {
                                 Text("Chapter \(item.chapter.number)")
                                     .font(.subheadline)
                                     .bold()
-                                    .foregroundColor(Color("4A6572"))
+                                    .foregroundColor(ColorTheme.Text.primary)
                                 Spacer()
                                 Text("\(Int(item.progress))%")
                                     .font(.subheadline)
-                                    .foregroundColor(Color("6B8C9A"))
+                                    .foregroundColor(ColorTheme.Text.secondary)
                             }
                             
                             ProgressBar(progress: item.progress)
-                                .tint(Color("5D7B89"))
                         }
                         .padding(.vertical, 4)
                     }
                 } header: {
                     Text("Chapter Progress")
-                        .foregroundColor(Color("4A6572"))
+                        .foregroundColor(ColorTheme.Text.primary)
                 }
             }
             .onAppear {
@@ -165,15 +161,15 @@ struct CircularProgressView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.gray.opacity(0.15), lineWidth: 6)
+                .stroke(Color(.systemGray5), lineWidth: 6)
             
             Circle()
                 .trim(from: 0, to: progress / 100)
                 .stroke(
                     LinearGradient(
-                        gradient: Gradient(colors: [Color("4FC3F7"), Color("81D4FA")]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+                        colors: [Color(.systemBlue), Color(.systemBlue).opacity(0.7)],
+                        startPoint: .leading,
+                        endPoint: .trailing
                     ),
                     style: StrokeStyle(lineWidth: 6, lineCap: .round)
                 )
@@ -193,16 +189,16 @@ struct StatView: View {
         VStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.system(size: 24))
-                .foregroundColor(color)
+                .foregroundStyle(color)
             
             Text(value)
                 .font(.title2)
                 .bold()
-                .foregroundColor(Color("4A6572"))
+                .foregroundStyle(Color(.label))
             
             Text(title)
                 .font(.caption)
-                .foregroundColor(Color("6B8C9A"))
+                .foregroundStyle(Color(.secondaryLabel))
         }
         .frame(maxWidth: .infinity)
     }
@@ -217,11 +213,11 @@ struct ProgressBar: View {
                 Rectangle()
                     .frame(width: geometry.size.width, height: 8)
                     .opacity(0.1)
-                    .foregroundColor(Color("5D7B89"))
+                    .foregroundStyle(Color(.systemGray5))
                 
                 Rectangle()
                     .frame(width: min(CGFloat(progress) / 100 * geometry.size.width, geometry.size.width), height: 8)
-                    .foregroundColor(Color("5D7B89"))
+                    .foregroundStyle(Color(.systemBlue))
             }
             .cornerRadius(4)
         }

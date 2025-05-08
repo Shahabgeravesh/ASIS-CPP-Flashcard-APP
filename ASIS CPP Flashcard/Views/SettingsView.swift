@@ -9,22 +9,18 @@ struct SettingsView: View {
     var body: some View {
         ZStack {
             // System background
-            LinearGradient(
-                colors: ColorTheme.Background.gradient(for: colorScheme),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             List {
                 Section {
                     Toggle("Dark Mode", isOn: $settings.isDarkMode)
-                        .foregroundColor(ColorTheme.Text.primary)
+                        .foregroundStyle(Color(.label))
                 } header: {
                     Text("Appearance")
                         .sectionHeaderStyle()
                 }
-                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
+                .listRowBackground(Color(.systemBackground))
                 
                 Section {
                     Button(action: {
@@ -32,17 +28,17 @@ struct SettingsView: View {
                     }) {
                         HStack {
                             Text("Reset All Progress")
-                                .foregroundColor(ColorTheme.Interactive.error)
+                                .foregroundStyle(Color(.systemRed))
                             Spacer()
                             Image(systemName: "arrow.counterclockwise")
-                                .foregroundColor(ColorTheme.Interactive.error)
+                                .foregroundStyle(Color(.systemRed))
                         }
                     }
                 } header: {
                     Text("Data Management")
                         .sectionHeaderStyle()
                 }
-                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
+                .listRowBackground(Color(.systemBackground))
                 
                 Section {
                     VStack(alignment: .leading, spacing: DesignSystem.Spacing.s) {
@@ -67,13 +63,13 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Reset All Progress", isPresented: $showingResetAlert) {
+        .alert("Reset Progress", isPresented: $showingResetAlert) {
             Button("Cancel", role: .cancel) { }
             Button("Reset", role: .destructive) {
                 chapterStore.resetAllProgress()
             }
         } message: {
-            Text("Are you sure you want to reset all your progress? This action cannot be undone.")
+            Text("Are you sure you want to reset all progress? This action cannot be undone.")
         }
     }
 } 

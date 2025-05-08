@@ -4,46 +4,47 @@ struct ChapterProgressView: View {
     let chapter: Chapter
     let chapterIndex: Int
     @ObservedObject var chapterStore: ChapterStore
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         List {
-            Section(header: Text("Overall Progress").foregroundColor(Color("4A6572"))) {
+            Section(header: Text("Overall Progress").foregroundStyle(Color(.label))) {
                 HStack {
                     Text("Mastered")
-                        .foregroundColor(Color("4A6572"))
+                        .foregroundStyle(Color(.label))
                     Spacer()
                     Text("\(Int(chapter.progressPercentage))%")
-                        .foregroundColor(Color("5D7B89"))
+                        .foregroundStyle(Color(.secondaryLabel))
                 }
                 
                 ProgressView(value: chapter.progressPercentage, total: 100)
-                    .tint(Color("5D7B89"))
+                    .tint(Color(.systemBlue))
             }
             
-            Section(header: Text("Cards Status").foregroundColor(Color("4A6572"))) {
+            Section(header: Text("Cards Status").foregroundStyle(Color(.label))) {
                 ForEach(chapter.flashcards.indices, id: \.self) { index in
                     let card = chapter.flashcards[index]
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Card \(index + 1)")
                                 .font(.headline)
-                                .foregroundColor(Color("4A6572"))
+                                .foregroundStyle(Color(.label))
                             Text(card.question)
                                 .font(.subheadline)
-                                .foregroundColor(Color("6B8C9A"))
+                                .foregroundStyle(Color(.secondaryLabel))
                                 .lineLimit(2)
                         }
                         
                         Spacer()
                         
                         Image(systemName: card.isMastered ? "checkmark.circle.fill" : "circle")
-                            .foregroundColor(card.isMastered ? Color("81C784") : Color("B0BEC5"))
+                            .foregroundStyle(card.isMastered ? Color(.systemGreen) : Color(.secondaryLabel))
                     }
                     .padding(.vertical, 4)
                 }
             }
         }
-        .background(Color("E3F2FD"))
+        .background(Color(.systemBackground))
         .navigationTitle("Chapter Progress")
         .navigationBarTitleDisplayMode(.inline)
     }
