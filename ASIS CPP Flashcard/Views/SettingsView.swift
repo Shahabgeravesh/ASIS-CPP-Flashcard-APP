@@ -8,58 +8,80 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack {
-            // System background
             Color(.systemBackground)
                 .ignoresSafeArea()
             
-            List {
-                Section {
-                    Toggle("Dark Mode", isOn: $settings.isDarkMode)
-                        .foregroundStyle(Color(.label))
-                } header: {
-                    Text("Appearance")
-                        .sectionHeaderStyle()
+            VStack(spacing: 24) {
+                // App Info Card
+                VStack(spacing: 16) {
+                    Image(systemName: "book.closed.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(.blue)
+                    
+                    Text("ASIS CPP Flashcards")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    Text("Version 3.7.3")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
-                .listRowBackground(Color(.systemBackground))
+                .frame(maxWidth: .infinity)
+                .padding(24)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.secondarySystemBackground))
+                )
+                .padding(.horizontal)
                 
-                Section {
+                // Settings Options
+                VStack(spacing: 16) {
+                    // Dark Mode Toggle
+                    HStack {
+                        Image(systemName: "moon.fill")
+                            .foregroundColor(.blue)
+                            .frame(width: 24)
+                        
+                        Text("Dark Mode")
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Toggle("", isOn: $settings.isDarkMode)
+                            .labelsHidden()
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.secondarySystemBackground))
+                    )
+                    
+                    // Reset Progress Button
                     Button(action: {
                         showingResetAlert = true
                     }) {
                         HStack {
-                            Text("Reset All Progress")
-                                .foregroundStyle(Color(.systemRed))
-                            Spacer()
                             Image(systemName: "arrow.counterclockwise")
-                                .foregroundStyle(Color(.systemRed))
+                                .foregroundColor(.red)
+                                .frame(width: 24)
+                            
+                            Text("Reset All Progress")
+                                .foregroundColor(.red)
+                            
+                            Spacer()
                         }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(.secondarySystemBackground))
+                        )
                     }
-                } header: {
-                    Text("Data Management")
-                        .sectionHeaderStyle()
                 }
-                .listRowBackground(Color(.systemBackground))
+                .padding(.horizontal)
                 
-                Section {
-                    VStack(alignment: .leading, spacing: DesignSystem.Spacing.s) {
-                        Text("ASIS CPP Flashcards")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(ColorTheme.Text.primary)
-                        Text("Version 3.7.3")
-                            .font(.system(size: 16, weight: .medium, design: .rounded))
-                            .foregroundColor(ColorTheme.Text.secondary)
-                    }
-                    .padding(.vertical, DesignSystem.Spacing.s)
-                } header: {
-                    Text("About")
-                        .sectionHeaderStyle()
-                }
-                .listRowBackground(ColorTheme.Background.listRow(for: colorScheme))
+                Spacer()
             }
-            .onAppear {
-                // Set the list background color to clear
-                UITableView.appearance().backgroundColor = .clear
-            }
+            .padding(.top, 32)
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
