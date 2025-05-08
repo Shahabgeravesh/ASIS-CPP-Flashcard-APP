@@ -144,6 +144,43 @@ struct FlashcardView: View {
                         }
                 )
                 .animation(.spring(response: 0.3, dampingFraction: 0.8), value: offset)
+                // Modern, consistent, and stunning swipe explanation below the card
+                HStack(spacing: 20) {
+                    HStack(spacing: 10) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.red.opacity(0.12))
+                                .frame(width: 44, height: 44)
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.red)
+                                .font(.system(size: 22, weight: .bold))
+                        }
+                        Text("Didn't know?\nSwipe left")
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.leading)
+                    }
+                    Spacer(minLength: 24)
+                    HStack(spacing: 10) {
+                        Text("Knew it!\nSwipe right")
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundColor(.green)
+                            .multilineTextAlignment(.trailing)
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.green.opacity(0.12))
+                                .frame(width: 44, height: 44)
+                            Image(systemName: "arrow.right")
+                                .foregroundColor(.green)
+                                .font(.system(size: 22, weight: .bold))
+                        }
+                    }
+                }
+                .padding(.top, 18)
+                .padding(.horizontal, 16)
+                .background(Color(.systemBackground).opacity(0.7))
+                .cornerRadius(18)
+                .shadow(color: Color.black.opacity(0.04), radius: 6, x: 0, y: 2)
             }
         }
     }
